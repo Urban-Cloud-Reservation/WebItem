@@ -1,0 +1,1003 @@
+
+
+js特效：
+1、定义事件（触发时机+行为）
+3、事件发生具有重复性
+2、触发事件（行为发生）
+---------------------------------
+面向对象编程：
+1、如何获得对象
+2、如何调用该对象的属性
+3、如何调用该属性的方法
+----------------------------------
+对象的组成部分
+1、属性（特征）
+2、方法（行为）
+----------------------------------
+js标签的放置位置（执行顺序）：
+1、内联
+2、内部
+3、外部
+
+变量定义：
+username=‘慧慧’；
+
+字符串连接变量：
+'my name is '+username
+
+js输出变量：
+1、alert(username);
+2、document.write('<h1>'+username+'</h1>');
+
+js字符串连接
++
+----------------------------------
+注释：
+1、//
+2、/*多行注释*/
+----------------------------------
+js变量类型：
+1、字符型
+str='my name is user1';
+2、整形
+num=10;
+3、浮点
+num=10.5;
+4、布尔
+true,false
+5、数组
+	1、arr=new Arrray(1,2,3);
+	2、arr=[1,2,3];
+6、对象
+	1、js对象
+	obj=new Object();
+	obj.username='user1';
+	obj.say=function(){
+	alert(123);
+	}
+	2、dom对象
+	eleobj=document;
+7、json对象
+	obj={
+	'username':'user1',
+	'age':'20',
+	'say':function(){
+	alert(this.username);
+	}
+	};
+8、NaN类(not a number)
+9、null类型(空)
+str=null
+一般用于提前规划一些变量或给变量赋初值
+10、undefined类型
+变量未定义
+-------------------------------------
+this指本对象
+-------------------------------------
+定义函数
+1、传统定义方法
+function say(){
+	alert(1);
+}
+2、匿名定义方法
+say=function(){
+	alert(1);
+}
+-------------------------------------
+变量作用域：
+1、全局变量
+变量定义时前面如果没有var则全部是全局变量
+2、只有在函数内部前面带var的变量为局部变量，局部变量只能在函数体内使用
+-------------------------------------
+变量类型测试：
+1、typeof();
+typeof()可判断的类型：
+	1、string
+	2、number
+	3、boolean
+	4、object
+	5、undefined
+2、arr instanceof Array；(判断是否是数组类型)
+boor=new Array();
+boor instanceof Array
+-------------------------------------
+js中所有的变量都是对象
+-------------------------------------
+js中前面的对象不用写的两种情况
+1、Global对象(js内部对象)
+＊typeof();
+＊parsrInt();
+＊parseFloat();
+＊eval();//可执行字符串中的表达式
+＊Number();
+＊String();
+＊Boolean();
+2、window对象(浏览器提供的标签对象)
+＊alert();
+-------------------------------------- 
+类型变量转换：
+1、整形-->字符型
+	＊num=10;
+	str=String(num);
+	＊num=10;
+	str=num+'';
+2、字符型-->整型
+＊str='10px';
+    num=parseInt(str);
+3、所有类型-->布尔类型
+＊字符型('')
+＊整型(0)
+＊浮点型(0.0)
+＊null
+＊NaN
+＊undefined
+＊所有类型-->布尔类型的方法:
+	Boolean(v);
+	!!v;
+-------------------------------------------
+eval();//可执行字符串中的表达式
+json字符串-->json对象
+v="{'username':'user1','age':'20'}";
+obj=eval('('+v+')');
+alert(obj);
+-------------------------------------------
+变量运算符
+1、+-*/%
+2、in运算符：
+	＊可判断某属性是否在对象中存在
+	obj={'username':'user1','age':'20'}
+	alert('age' in obj);
+	＊可判断下标是否在数组内存在
+	arr=['1','2','3'];
+	alert('2' in arr);
+3、instanceof
+4、delete运算符：
+	不能删除局部变量(var)
+5、三元运算符：val=a?1:2; a为true返回1值，a为false返回2值;
+objs[i].checked=objs[i].checked?false:true;
+已被选中返回false值，未被选中返回true值
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+js语法
+＊ifElse语句
+＊switch语句
+＊while循环
+＊for循环
+	＊遍历数组
+	arr=['1','2','3'];
+	for(i=0;i<10;i++){
+		document.write('<h1>'+arr[i]+'</h1>')
+	}
+＊forIn遍历
+	＊遍历对象属性
+	obj={'username':'user1','age':'20','sex':'woman'};
+	for(i in obj){
+		document.write('<h1>'+i+'</h1>')
+	}
+	＊遍历对象属性值
+	obj={'username':'user1','age':'20','sex':'woman'};
+	for(i in obj){
+		document.write('<h1>'+obj[i]+'</h1>')
+	}
+----------------------------------------------
+函数、函数调用及传参数
+function out(n=9,k=1){
+	for ( i = 1; i <=n; i++) {
+		document.write('<h3>');
+		for(j=1;j<=i;j++){
+			document.write('<span>'+j+'x'+i+'='+(j*i)+'  '+'</span>');
+		}
+		document.write('</h3>');
+	}
+	for (var i = 1; i<=k; i++) {
+		document.write("<hr/>");
+	}
+}
+function out(n,k){
+	for ( i = 1; i <=n; i++) {
+		document.write('<h3>');
+		for(j=1;j<=i;j++){
+			document.write('<span>'+j+'x'+i+'='+(j*i)+'  '+'</span>');
+		}
+		document.write('</h3>');
+	}
+	for (var i = 1; i<=k; i++) {
+		document.write("<hr/>");
+	}
+}
+out(9,3);
+out(8,22);
+-----------------------
+out=function(n,k){
+	for ( i = 1; i <=n; i++) {
+		document.write('<h3>');
+		for(j=1;j<=i;j++){
+			document.write('<span>'+j+'x'+i+'='+(j*i)+'  '+'</span>');
+		}
+		document.write('</h3>');
+	}
+	for (var i = 1; i<=k; i++) {
+		document.write("<hr/>");
+	}
+}
+out(9,3);
+out(8,22);
+--------------------------------------------------------
+消息框：
+＊警告框
+alert('**********************');
+＊确认框
+confirm('你确认删除吗？');
+＊提示框
+prompt('请输入图片的名字：')
+--------------------------------------------------------
+js对象：
+	1、js内置对象
+	2、BOM浏览器对象
+	3、DOM文档对象
+--------------------------------------------------------
+
+◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎js内置对象◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎
+						1、数学
+						2、日期
+						3、定时器
+						4、超时器
+						5、字符串
+						6、数组
+						＊事件对象
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+＊数学对象:
+	1、生成对象
+	Math；
+	2、属性
+	Math.PI
+	3、方法	
+	(1)Math.ceil();
+	取下一个整数
+	3.14-->4
+	3.99-->4
+	-------------------------
+	(2)Math.floor();
+	取上一个整数
+	3.14-->3
+	3.99-->3
+	-------------------------
+	(3)Math.round();
+	四舍五入
+	3.14-->3
+	3.55-->4
+	-------------------------
+	(4)Math.random();
+	取0~1之间的随机数
+	arr=['a.png','b.png','c.png','d.png','e.png'];
+	rand=Math.random();
+	total=arr.length;
+	sub=Math.floor(rand*total);
+	imgobj=document.getElementById('imgo');
+	imgobj.src=arr[sub];
+	--------------------------
+	(5)Math.max();
+	取最大值
+	--------------------------
+	(6)Math.min();
+	取最小值
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+＊日期对象：
+1、生成对象
+	dobj=new Date();
+2、方法：
+	getFullYear();
+	getMonth();
+	getDate();
+	getHours();
+	getMinutes();
+	getSeconds();
+	---------------------------------------------
+		秒表实例：
+	function getDate(){
+		dobj=new Date();
+		year=dobj.getFullYear();
+		mouth=dobj.getMonth()+1;
+		if (mouth<10) {
+			mouth='0'+mouth;
+		}
+		day=dobj.getDate();
+		if (day<10) {
+			day='0'+day;
+		}
+		hour=dobj.getHours();
+		if (hour<10) {
+			hour='0'+hour;
+		}
+		minute=dobj.getMinutes();
+		if (minute<10) {
+			minute='0'+minute;
+		}
+		second=dobj.getSeconds();
+		if (second<10) {
+			second='0'+second;
+		}
+		str=year+'-'+mouth+'-'+day+'    '+hour+':'+minute+':'+second;
+		clockobj=document.getElementById('clock');
+		clockobj.innerHTML=str;
+	}
+	getDate();
+	setInterval(function(){
+		getDate();
+	},1000);
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+定时器：
+1、定义
+	＊sobj=setInterval(function(){
+		//每隔一秒钟，执行此代码段
+	},1000);
+	＊sobj=setInterval(func,1000);
+2、清除
+	clearInterval(sobj);
+	------------------------
+	5秒后跳转进入小米主页
+	x=5
+	djsobj=document.getElementById('djs');
+	dsq=setInterval(function(){
+		djsobj.innerHTML=--x;
+		if (x==0) {
+			location='http://www.xiaomi.com';
+			//clearInterval(dsq);
+		}
+	},1000);
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+超时器：
+1、定义
+	tobj=setTimeout(func,1000);
+2、清除
+	clearTimeout(tobj);
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+字符串：
+属性：
+	length
+方法：
+	indexOf();
+	检测某个字符的第一次在某字符串中出现的位置
+	str.indexOf('n')
+	----------------------
+	lastIndexOf();
+	检测某个字符的最后一次在某字符串中出现的位置
+	str.lastIndexOf('n')
+	----------------------
+	substr(0,5);
+	字符截取函数
+	substr(1,3);
+	从第一个字符截取3个字符
+	------------------------------------
+	截取地址和文件名实例：
+	str='/web/home/index.html';
+	s=str.lastIndex('/');
+	add=str.substr(0,s);
+	file=str.substr(s+1);
+	------------------------------------
+	slice(start,end);
+	截取字符串
+	从某字符开始到某字符结束但不包含最后一个
+	----------------------
+	split(reg|正则);
+	字符串分割函数
+	以reg字符|正则为界限，可将分割后字符串放进数组
+	arr=str.split('.');
+	-----------------------------------
+	找到以某字符分割的最后一个字符串
+	str='/web/home/index.html';
+	arr=str.split('.');
+	val=arr.length;//数组长度
+	alert(arr[val-1]);
+	或
+	val=arr.pop();
+	alert(val);
+	-----------------------------------
+	search(reg|正则);
+	字符串查找
+	str='/web/home/index.html';
+	pos=str.search('home');
+	alert(pos);
+	可在字符串中找到某个单词的首字母的索引值
+	pos=str.search(/Home/i);//search可搜索正则表达式indexOf不可
+	-----------------------------------
+	match(reg|正则);
+	字符串匹配
+	str='/web/home/index.html';
+	arr=str.match(/home/ig);//i表示不分大小写，g表示所有的
+	可用正则表达式搜索该字符串中所有的大写和小写的home
+	则返回值为数组对象
+	alert(arr);
+	----------------------------
+	replace(reg|正则,"str");
+	str='/web/home/Homeindex.html';
+	arr=str.replace(/home/ig,'ysw');
+	可替换所有的home为ysw，返回字符串
+	alert(arr); 
+	------------------------------------------------------------------------
+	函数返回值：
+	1、alert();
+	2、return    ;
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+＊数组对象
+属性：
+	length
+
+方法：
+	join();
+	arr=['user','program','sublime','sublime.exe'];
+	str=arr.join('/');
+	alert(str);
+	数组用某字符连接为字符串并返回
+	-----------------------------
+	pop();
+	弹出数组元素的最后一个值,返回值为数组长度,改变原数组
+	-----------------------------
+	push();
+	在数组的最后位置加入一个元素,返回值为数组长度,改变原数组
+	-----------------------------
+	shift();
+	弹出数组的第一个值,返回值为数组长度,改变原数组
+	-----------------------------
+	unshift();
+	在数组的开头加入一个元素,返回值为数组长度,改变原数组
+	-----------------------------
+	reverse();
+	返回数组中元素倒序，不改变原数组
+	arr=['user','program','sublime','sublime.exe'];
+	arr2=arr.reserve();
+	alert(str2);
+	-----------------------------
+	concat();
+	数组连接/数组合并
+	arr=['user','program'];
+	arr2=['sublime','sublime.exe'];
+	arr3=arr.concat(arr2);
+	alert(str3);
+	-----------------------------
+	sort(show)	//改变原数组
+	show(a,b){
+		return a-b;//正序
+		return b-a;//倒序
+	}
+	数组元素排序
+	arr=[5,43,66,3,22];
+	function asc(i,j){
+		return i-j;
+	}
+	function desc(i,j){
+		return j-i;
+	}
+	arr.sort(asc);
+	alert(arr);
+	-----------------------------
+	slice(start,n)
+	截取数组元素组成新数组，不改变原数组
+	从start元素开始截取n个元素
+	str='/web/home/index.html';
+	arr=str.split('.');
+	截取最后一个元素
+	val=arr.slice(3);
+	val=arr.slice(-1);(元素索引如果为负数，则从后往前由-1开始)
+	alert(val[0]);
+	slice(start)从start元素开始截取后面所有元素
+	-----------------------------
+	splice(n,m);
+	截取数组元素变成新数组，此方法改变原数组
+	从n元素开始截取m个元素
+	str='/web/home/index.html';
+	arr=str.split('.');
+	截取最后一个元素
+	val=arr.splice(3);
+	val=arr.splice(-3);(元素索引如果为-3，则从后往前由倒数第3个开始往后)
+	alert(val[0]);
+	splice(start)从start元素开始截取后面所有元素
+	----------------------------------
+
+----------------------------------------------------------------------
+＊字符串大小写转换
+	toUpperCase();
+	转大写
+	str='l love you!';
+	str2=str.toUpperCase();
+	alert(str2);
+	-----------------------------
+	toLowerCase();
+	转小写
+	str='l love you!';
+	str2=str.toLowerCase();
+	alert(str2);
+----------------------------------------------------------------------------
+＊正则表达式：
+1、修饰词
+i	忽略大小写
+g	全部匹配
+m	把\n识别为换行符
+2、中括号
+[abc] 	中括号中的任意一个字符
+[^abc] 	除了中括号中的任意一个字符
+(linux)|(php) linux或php单词
+()可实现向后引用	replace(/()\/()\/()/g,'$1-$2-$3')
+3、元字符
+.	任意一个字符
+\w 	任意一个字母、数字或下划线
+\W 	任意一个非字母、数字或下划线
+\d 	任意一个数字
+\D 	任意一个非数字
+\s 	任意一个空格
+\S 	任意一个非空格
+\b 	单词边界
+\B 	非单词边界
+\n 	代表换行符
+用\可去除特殊性
+4、量词
++  	1个或多个
+*  	任意多个
+? 	1个或0个
+{3}	3个
+{3,5}	3个到5个
+{3,}	3个以上
+^ 	行首
+$ 	行末
+?=a 	后面紧挨a的
+?!a 	后面不紧跟a的
+5、js中使用正则的字符串对象的方法
+	1.search();
+	2.match();
+	3.replace();
+	4.split();
+6、正则实例
+	1、手机号码匹配
+	phone='13781206061';
+	if (phone.match(/^137\d{8}$/i)) {
+		alert('yes');
+	}else{
+		alert('no');
+	}
+	2、邮箱匹配
+	email='yswghc521@qq.com';
+	if (email.match(/^\w+@\w+\.\w+$/i)) {
+		alert('邮箱格式正确！');
+	}else{
+		alert('邮箱格式错误！');
+	}
+	3、使用向后引用实现高级替换功能
+	date='2017/07/30';
+	time=date.replace(/(\d+)\/(\d+)\/(\d+)/g,'$1-$2-$3');
+	alert(time);
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+js特效
+	＊事件触发
+	＊属性改变
+	＊样式改变
+＊绑定事件
+鼠标事件
+	＊onclick
+	单击事件
+	＊ondbclick
+	双击事件
+	＊onmouseenter
+	鼠标移入事件
+	＊onmouseleave
+	鼠标离开事件
+	＊onmousemove
+	鼠标移动事件
+键盘事件
+	＊onkeydown
+	键盘按下事件
+	＊onkeyup
+	键盘弹起事件
+	＊onkeypress
+	键盘按下并弹起事件
+	
+----------------------------------------------------------------------------
+键盘均有键盘码，可控制上下左右移动：
+	xs=600;
+	ys=200;
+	yv=10;
+	xv=10;
+	document.onkeydown=function(event){
+		kd=event.keyCode;
+		document.title=kd;
+		switch(kd){
+			case 37:
+				xs-=xv;
+				imgobj.style.left=xs+'px';
+				break;
+			case 38:
+				ys-=yv;
+				imgobj.style.top=ys+'px';
+				break;
+			case 39:
+				xs+=xv;
+				imgobj.style.left=xs+'px';
+				break;
+			case 40:
+				ys+=yv;
+				imgobj.style.top=ys+'px';
+				break;
+			case 65:
+				xs-=xv;
+				imgobj.style.left=xs+'px';
+				break;
+			case 87:
+				ys-=yv;
+				imgobj.style.top=ys+'px';
+				break;
+			case 68:
+				xs+=xv;
+				imgobj.style.left=xs+'px';
+				break;
+			case 83:
+				ys+=yv;
+				imgobj.style.top=ys+'px';
+				break;
+		}
+	}
+----------------------------------------------------------------------------
+获取可视的高(屏幕的宽和高):
+1、document.documentElement.clientHeight;
+2、document.documentElement.clientWidth;
+获取屏幕总的宽和高:
+1、document.documentElement.scrollHeight;
+2、document.documentElement.scrollWidth;
+获取滚动的高:
+1、document.documentElement.scrollTop;
+2、document.body.scrollTop;
+＊弹力球实例：
+//获取屏幕高度和宽度，即document或html的高度和宽度
+
+imgobj=document.getElementById('imgo');
+//图片加载完毕执行该函数
+imgobj.onload=function(){
+	imgHeight=imgobj.clientHeight+2;//获取图片的高加上边框
+	imgWidth=imgobj.clientWidth+2;//获取图片的宽加上边框
+	yss=0;//动画执行初始横坐标
+	yvv=10;
+	xss=0;//动画执行初始纵坐标
+	xvv=10;
+	screenHeight=document.documentElement.clientHeight;//获取可视浏览器屏幕的高
+	screenWidth=document.documentElement.clientWidth;//获取可视浏览器屏幕的宽
+	imgCha1=screenHeight-imgHeight;//可视浏览器屏幕的高与图片的高加上边框的差值
+	setInterval(function(){
+		yss+=yvv;
+		if (yss>=imgCha1) {
+			yss=imgCha1;
+			yvv=-yvv;
+		}
+		if (yss<=0) {
+			yvv=-yvv;
+		}
+		imgobj.style.top=yss+'px';
+	},50);
+	imgCha2=screenWidth-imgWidth;
+	setInterval(function(){
+		xss+=xvv;
+		if (xss>=imgCha2) {
+			xss=imgCha2;
+			xvv=-xvv;
+		}
+		if (xss<=0) {
+			xvv=-xvv;
+		}
+		imgobj.style.left=xss+'px';
+	},50);	
+}
+-------------------------------------------------------------------------
+＊表单事件：
+	◆ onclick
+	单击事件
+	◆ onfocus
+	表单获取焦点事件
+	◆ onblur
+	表单元素失去焦点事件
+	◆ onchange
+	表单元素值被改变事件
+	◆ onselect
+	表单元素值被选中事件
+	◆ onsubmit
+	表单提交事件
+	◆ onreset
+	表单重置事件
+＊其他事件：
+	◆ onload
+	待。。。加载完毕
+	◆ onerror
+	◆ onresize
+	//当窗口大小发生改变时执行某事件
+	window.onresize=function(){
+		a=document.documentElement.clientHeight;
+		b=document.documentElement.clientWidth;
+		document.title=a+'-'+b;
+	}
+	◆ onscroll
+	鼠标滚动事件
+＊表单事件方法：
+	◆ select()
+	◆ blur()
+	◆ focus()
+	◆ click()
+	◆ submit()
+	◆ reset()
+网页加载时机：
+1、标签加载完毕
+body后面的js代码
+2、窗口加载完毕
+window.onload=function(){	
+}
+◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇BOM浏览器对象◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
+browser object modol(浏览器对象模型)BOM
+○window对象
+○navigator浏览器特性
+○screen屏幕对象
+○history对象
+○location地址栏
+○document对象
+----------------------------------
+＊window对象：
+属性：
+frames		//窗口数组
+opener		//打开我的那个窗口
+top 		//顶级窗口
+方法：
+alert();
+confirm();
+prompt();
+setInterval();
+clearInterval();
+setTimeout();
+clearTimeout();
+----------------------------------
+Navigator对象：
+属性：
+userAgent;
+----------------------------------
+screen屏幕对象：
+属性：
+availHeight
+availWidth
+height
+width
+屏幕分辨率的高： window.screen.height;
+屏幕分辨率的宽： window.screen.width;
+屏幕可用工作区高度： window.screen.availHeight;
+屏幕可用工作区宽度：window.screen.availWidth;
+----------------------------------
+JS中关于clientWidth offsetWidth scrollWidth 等的含义
+欧朋，谷歌，360浏览器：
+网页被卷去的高： document.body.scrollTop;
+网页被卷去的左： document.body.scrollLeft;
+火狐浏览器
+网页被卷去的高： document.documentElement.scrollTop;
+网页被卷去的左： document.documentElement.scrollLeft;
+
+以下高无兼容问题
+网页加载总区域宽： document.body.offsetWidth   	(包括边线的宽)(包括内边距不包括外边距);
+网页加载总区域高： document.body.offsetHeight  	(包括边线的宽)(包括内边距不包括外边距);
+网页正文全文宽： document.body.scrollWidth;		(不包括边线的宽)(包括内边距不包括外边距);
+网页正文全文高： document.body.scrollHeight;	(不包括边线的宽)(包括内边距不包括外边距);
+网页加载总区域宽： document.body.clientWidth;	(不包括边线的宽)(包括内边距不包括外边距)
+网页加载总区域高： document.body.clientHeight;	(不包括边线的宽)(包括内边距不包括外边距)
+网页可见区域高： document.documentElement.clientHeight;
+网页可见区域宽： document.documentElement.clientHeight;
+屏幕分辨率的高： window.screen.height;
+屏幕分辨率的宽： window.screen.width;
+屏幕可用工作区高度： window.screen.availHeight;
+屏幕可用工作区宽度：window.screen.availWidth;
+
+三高：
+sw=document.documentElement.clientHeight;//587//浏览器可视屏幕的高
+sw=screen.availHeight;//680//有效的高
+sw=screen.height;//720//获取屏幕分辨率的高
+三宽：
+sw=document.documentElement.clientWidth;//1280//浏览器可视屏幕的宽
+//sw=screen.width;//1280//获取屏幕分辨率的宽
+//sw=screen.availWidth;//1280//有效的宽
+----------------------------------------------------------------------
+history对象：
+方法：
+back()后退一个历史
+forword()前进一个历史
+go(-1);后退一个历史
+
+location地址栏
+属性：
+hash		//获取url里的锚点#abc
+host		//主机名
+href		//当前的url地址
+pathname	//index.html 页面的名称
+protocol	//协议 http://
+search 		//参数 ?id=10&name=user1
+方法：
+location.reload();	//重载当前页面（刷新F5）
+------------------------------------------------------------------
+DOM对象
+document object model	文档对象模型
+-------------------------------------------
+DOM基础对象
+1、document
+2、document.documentElement
+3、document.head
+4、document.title
+5、document.body
+-------------------------------------------
+直接获取DOM元素对象集合（dom对象标准属性）
+1、document.links;
+获取所有的a标签元素对象组成对象集合
+2、document.images;
+获取所有的img标签元素对象组成对象集合
+objs=document.images;
+for(i=0;i<objs.length;i++){
+	objs.style.background='#ccc';
+}
+3、document.forms;
+获取所有的form表单对象组成对象集合
+4、document.anchors;
+获取所有的带有锚点的元素对象组成对象集合
+5、tableObj.rows;
+6、tableRowObj.cells;
+	objs=document.getElementById('objs') ;
+	objs.rows[1].cells[1].innerHTML='abc';//将第二行第二列的文本改为'abc'.
+7、abcobj=selectObj.options;
+获取所有的option元素组成对象集合
+selectObj.selectedIndex;
+获取被选中的下拉菜单元素对象索引值
+<select id='sid'>
+	<option value='北京' order='1'>北京</option>
+	<option value='上海' order='5'>上海</option>
+	<option value='广州' order='8'>广州</option>
+</select>
+<p><input type='button' value='ok' id='btn'></p>
+
+btnobj=document.getElementById('btn');
+sidobj=document.getElementById('sid');
+btnobj.onclick=function(){
+	idx=sidobj.selectedIndex;
+	opts=sidobj.options;
+	alert('城市排名：'+opts[idx].getAttribute('order'));
+}
+--------------------------------------------
+遍历集合对象设置事件
+1、objs[i]
+-----------------------三元运算符 表单反选实例
+unall.onclick=funcion(){
+	for(i=0;i<objs.length;i++){
+	objs[i].checked=objs[i].checked?false:true;
+	}
+}
+-----------------------一元运算符 表单反选实例
+unall.onclick=funcion(){
+	for(i=0;i<objs.length;i++){
+	objs[i].checked=!objs[i].checked;
+	}
+}
+-----------------------多标签循环单机隐藏与消失
+<h1>0001</h1>
+<p>不能再该奋斗的年纪选择了安逸</p>
+<h1>0002</h1>
+<p>不能再该奋斗的年纪选择了安逸</p>
+<h1>0003</h1>
+<p>不能再该奋斗的年纪选择了安逸</p>
+<h1>0004</h1>
+<p>不能再该奋斗的年纪选择了安逸</p>
+<h1>0005</h1>
+<p>不能再该奋斗的年纪选择了安逸</p>
+objs=document.getElementsByTagName('h1');
+ps=document.getElementsByTagName('p');
+
+for ( i = 0; i < objs.length; i++) {
+	objs[i].setAttribute('line',i);
+	objs[i].setAttribute('num',0);
+	ps[i].id=i;
+	objs[i].onclick=function(){
+		num=parseInt(this.getAttribute('num'));
+		line=this.getAttribute('line');
+		np=document.getElementById(line);
+
+		if (num%2==0) {
+			np.style.display='none';
+		}else{
+			np.style.display='block';
+		}
+		this.setAttribute('num',num+1);
+	}
+}
+--------------------
+2、this
+--------------------------------------------
+获取元素的方法：
+document.getElementById()
+通过标签的id获取元素对象
+document.getElementsClassName()
+通过标签的class名获取元素对象
+document.getElementsTagName()
+通过标签的名字获取元素对象
+objs=document.getElementsByTagName('h1');
+for(i=0;i<objs.length;i++){
+	objs[i].onmouseenter=function(){
+	this.style.backgroung='#ccc';
+	}
+	objs[i].onmouseleave=function(){
+	this.style.backgroung='#fff';//此处this不可用objs[i]代替当页面加载完毕时i=5，然而objs[5]并不存在;
+	}
+}
+//事件变量只有在事件触发时才会解析赋值
+
+借助非标准属性完成事件：
+objs=document.getElementsByTagName('h1');
+for ( i = 0; i < objs.length; i++) {
+	objs[i].setAttribute('num',0);
+	objs[i].onclick=function(){
+		num=parseInt(this.getAttribute('num'));
+		if (num%2==0) {
+			this.style.background='#ccc';
+		}else{
+			this.style.background='#fff';
+		}
+		this.setAttribute('num',num+1);
+	}
+}
+document.getElementsByName()
+通过标签的那么属性获取元素对象
+--------------------------------------------
+元素对象的标准属性：
+obj.id;
+obj.className;
+obj.style;
+obj.title;
+元素对象非标准属性：
+<form action='' method='' age='' sex=''></form>,其中age，sex是非标准属性
+1、getAttribute('age');		获取标签所有属性（包括标准属性和非标准属性）
+2、setAttribute('age','50');	设置标签属性
+<h1 info='yswghc' id='hid'>你好！</h1>
+hidobj=document.getElementById('hid');
+alert(hidobj.getAttribute('info'));
+hidobj.setAttribute('info','syj');
+标签元素对象的js属性
+obj.tagName
+obj.innerHTML获取标签的内部内容
+obj.outerHTML获取标签的全部内容
+obj.textContent获取标签的内容除去内部的标签只取文本
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+＊						＊
+＊						＊
+＊						＊
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+javascript Ajax无刷新技术
+生成ajax对象
+xhr=new XMLHttpRequest();
+属性：
+1、xhr.readyState;
+2、xhr.responseText;
+
+方法：
+xhr.open();
+xhr.send();
+相关事件：
+xhr.onreadystatechange=function(){};//js监听整个通讯过程
+→→→→→→→→→→→→→→→→→→→→→→→→→ 		        →→→→→→→→→→→→→→→→→→→→→→→→→
+﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎ 		        ﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 		        ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇ 		        ◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
+◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎ 		        ◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎
+○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○ 		        ○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○
+∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷ 		        ∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷
+√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√ 		        √√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+1、2、3、4、5、6、7、(1)(2)(3)(4)(5)(6)(7)						   (1)(2)(3)(4)(5)(6)(7)1、2、3、4、5、6、7、
+→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→
+﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
+◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎
+○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○
+∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷
+√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√

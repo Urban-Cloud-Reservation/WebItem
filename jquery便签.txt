@@ -1,0 +1,753 @@
+1、对象链式结构
+	function $(){
+		obj= new Object();
+		obj.username='user123';
+		obj.say=function(){
+			alert('my name is yanshenwei');
+			return this;
+		}
+		obj.eat=function(){
+			alert('I am eating!');
+		}
+		return obj;
+	}
+	$().say().eat();
+-----------------------------------------------------------------------------------------------
+2、js对象转jquery对象的方法:把dom对象的名字clock放到$()里边:$(clock) 就完成了
+	clock=document.getElementById('clock');
+	clock.onclick=function(){
+		this.src="b.png";
+	}
+
+	$(clock).click(function(){
+		this.src="b.png";//js对象转jquery对象调用js的属性和方法时用this.调用
+	})
+	jquery中能代表本对象的只有this
+	此两种方法等同！
+	$(clock).click(function(){
+		$(this).attr({"src":"b.png"});//js对象转jquery对象调用jquery的属性和方法时用$(this).调用
+	})
+--------------------------------
+3、jquery对象转js对象的方法：$('p')[0].    或    $('p').get(0).
+	val=$('p')[0].innerHTML;
+	alert(val);
+
+	pppp=document.getElementById('pppp');
+	pppp.onclick=function(){
+		$('#pppp')[0].innerHTML="簡單點";
+	}
+----------------------------------------------------------------------------------------------
+4、jquery的核心属性和方法（对象身上的函数称为方法）
+属性：
+length;		jquery对象中dom对象的个数
+方法： 
+size();		jquery对象中dom对象的个数
+get();		获取dom对象集合
+get(index);	获取dom对象中索引的某个对象
+each();		遍历所有对象
+-----------------------------------
+index();		该方法用于获取当前jQuery对象中指定DOM元素的索引值。如果未找到元素，index() 将返回 -1
+	标签页效果：
+	$('.menu li').eq(0).css({'background':'#fff','color':'#272822'});
+	$('.menu li').mouseenter(function(){
+		$(this).css({'background':'#fff','color':'#272822'});
+		$('.menu li').not(this).css({'background':'#272822','color':'#fff'});
+		idx=$(this).index('.menu li');
+		$(".pmark p").eq(idx).show();
+		$(".pmark p").not($(".pmark p").eq(idx)).hide();	
+	});
+--------------------------------------
+data():		该方法向被选元素附加数据，或者从被选元素获取数据。
+	获取：
+	$(selector).data(name)
+	附加js属性和数据
+	$(selector).data(name,value)
+	----------------------------
+	$("#btn1").click(function(){
+	$("div").data("greeting", "Hello World");
+	});
+	$("#btn2").click(function(){
+	alert($("div").data("greeting"));
+	});
+--------------------------------------
+	$('.asdf p').each(function(i){
+		$(this).data({'num':i+1});
+	});
+	$('.asdf p').click(function(i){
+		$(this).html($(this).data('num'));
+	});
+---------------------------------------------------------------------------------------------
+	实现单击换行号的三种方法：
+	$('.asdf p').each(function(i){
+		$(this).data({'num':i+1});
+	});
+	$('.asdf p').click(function(i){
+		$(this).html($(this).data('num'));
+	});
+
+----------------------------------
+	$('p').each(function(i){
+		$('p').get()[i].setAttribute('num',i+1);
+	});
+	$('p').click(function(i){
+		this.innerHTML=this.getAttribute('num');
+	});
+----------------------------------
+	$('p').each(function(i){
+		$(this).attr({'num':i+1});
+	});
+	$('p').click(function(i){
+		$(this).html($(this).attr('num'));
+	});
+---------------------------------------------------------------------------------------------
+5、选择器
+基础
+	→#id
+	→ele
+	→.class
+	→*
+	→ sel1,sel2
+层级
+	→ancestor descendant
+	$("form input")
+	在给定的祖先元素下匹配所有的后代元素
+	→parent >child
+	$("form > input")
+	在给定的父元素下匹配所有的子元素
+	→prev +next
+	$("label + input")
+	匹配所有紧接在 prev 元素后的 next 元素
+	→prev ~ siblings
+	$("form ~ input")
+	匹配 prev 元素之后的所有 siblings 元素
+基础
+	→:first
+	→:last
+	→:not
+	去除所有与给定选择器匹配的元素
+	$("input:not(:checked)")
+	→:even
+	索引值为偶数
+	→:odd
+	索引值为奇数
+	→:eq
+	$("tr:eq(1)")
+	索引值为1
+	→:gt
+	$("tr:gt(0)")
+	索引值大于0的
+	→:lt
+	$("tr:lt(2)")
+	索引值小于2的
+内容
+	→:has
+	$("div:has(p)").addClass("test");
+	给所有包含 p 元素的 div 元素添加一个 text 类
+	→:parent
+	$("td:parent")
+属性
+	→[name]含有name属性的
+	→[name=user]name等于user
+	→[name!=user]name不等于user
+	→[name^=user]name以user开头
+	→[name$=user]name以user结尾
+	→[name*=er]name含有er
+	→[name*=er][name$=user]name含有er并且以user结尾
+子元素
+	→nth-child
+	$("ul li:nth-child(2)")
+	匹配其父元素下的第N个子或奇偶元素
+	→fisrt-child
+	$("ul li:first-child")
+	匹配第一个子元素
+	→last-chid
+	$("ul li:last-child")
+	匹配最后一个子元素
+	→only-chid
+	$("ul li:only-child")
+	如果某个元素是父元素中唯一的子元素，那将会被匹配
+表单
+	→:input
+	$(":input")
+	匹配所有 input, textarea, select 和 button 元素
+	→:text
+	$(":text")
+	匹配所有的单行文本框
+	→:password
+	$(":password")
+	匹配所有密码框
+	→:radio
+	$(":radio")
+	匹配所有单选按钮
+	→:checkbox
+	$(":checkbox")
+	匹配所有复选框
+	→:submit
+	$(":submit")
+	匹配所有提交按钮
+	→:reset
+	→:button
+	→:file
+	→:hidden
+表单属性
+	→:checked
+	$("input:checked")
+	匹配所有选中的被选中元素(复选框、单选框等，不包括select中的option)
+	→:selected
+	$("select option:selected")
+	匹配所有选中的option元素
+---------------------------------------------------------------------------------------------
+筛选：
+1、过滤
+	eq();
+	$('h1').eq(0).css({'color':'#ccc'});
+	first();
+	$('h1').first().css({'color':'#ccc'});
+	last();
+	$('h1').last().css({'color':'#ccc'});
+	not();	
+	$("p").not( $("#selected")[0] );
+	slice();	从1开始到4结束但不包括4
+	$('h1').slice(1,4).css({'color':'#ccc'});
+
+2、查找
+	children();
+	$("div").children()
+	取得一个包含匹配的元素集合中每一个元素的所有子元素的元素集合。
+	$("div").children(".selected")
+	在每个div中查找 .selected 的类。
+	find();
+	$("p").find("span")
+	搜索所有与指定表达式匹配的元素。这个函数是找出正在处理的元素的后代元素的好方法。
+	next();
+	$("p").next()
+	取得一个包含匹配的元素集合中每一个元素紧邻的后面同辈元素的元素集合。
+	nextAll();
+	$("div:first").nextAll().addClass("after");
+	查找当前元素之后所有的同辈元素。
+	parent();
+	$("p").parent()
+	取得一个包含着所有匹配元素的唯一父元素的元素集合。
+	$("p").parent(".selected")
+	查找段落的父元素中每个类名为selected的父元素。
+	prev();
+	$("p").prev()
+	取得一个包含匹配的元素集合中每一个元素紧邻的前一个同辈元素的元素集合。
+	prevAll();
+	$("div:last").prevAll().addClass("before");
+	查找当前元素之前所有的同辈元素
+	siblings();
+	$("div").siblings()	：同辈前后所有的元素
+	取得一个包含匹配的元素集合中每一个元素的所有唯一同辈元素的元素集合。可以用可选的表达式进行筛选。
+	$("div").siblings(".selected")
+	找到每个div的所有同辈元素中带有类名为selected的元素。
+
+3、串联
+	add();
+	$('h1').add('p').css({'color':'#ccc'});
+	andSelf();
+	$('div').next().andSelf().css({'color':'#ccc'});
+	offsetParent();
+	$("p").offsetParent().css("background-color","red");
+	返回第一个匹配元素用于定位的父节点。返回父元素中第一个其position设为relative或者absolute的元素。此方法仅对可见元素有效。
+
+---------------------------------------------------------------------------------------------
+属性
+
+◎属性：
+◇ 获取属性值：attr('src')
+   设置属性值：attr({'num':i+1});/attr({"src":"e.png"});/attr({src:"e.png"});
+----------------------------------
+◇ 移除属性值：removeAttr("src");
+----------------------------------
+◇ prop() 获取在匹配的元素集中的第一个元素的属性值。
+	x=$("input[type='checkbox']").prop("checked");
+	x的值选中复选框为true，没选中为false
+	用attr("checked")获取checkbox的checked属性时选中的时候可以取到值,值为"checked"但没选中获取值就是undefined。prop方法获取属性则统一返回true和false。
+---------------------------------
+◇removeProp(" ")用来删除由.prop()方法设置的属性集
+
+◎css类 
+
+◇addClass(class|fn)
+$(selector).addClass(class)
+	$("p:first").addClass("intro");
+	$("p:first").addClass("intro note");
+	$("p:first").removeClass("intro").addClass('main');
+$(selector).addClass(function(index,oldclass))
+	addClass(function(n){
+		return 'par_' + n;
+	});
+-------------------------------------
+◇removeClass([class|fn])
+$(selector).removeClass(class)
+	removeClass() 方法从被选元素移除一个或多个类。如果没有规定参数，则该方法将从被选元素中删除所有类。
+$(selector).removeClass(function(index,oldclass))
+	$('ul li').removeClass(function() {
+		return 'listitem_' + $(this).index();
+	});
+-------------------------------------
+◇toggleClass(class|fn[,sw]) 
+如果存在（不存在）就删除（添加）一个类。
+	$(selector).toggleClass(class,switch)
+	toggleClass() 对设置或移除被选元素的一个或多个类进行切换。该方法检查每个元素中指定的类。如果不存在则添加类，如果已设置则删除之。这就是所谓的切换效果。通过使用"switch" 参数，您能够规定只删除或只添加类。布尔值。规定是否添加或移除 class。
+	$("p").toggleClass("main");
+使用函数来切换类
+	$(selector).toggleClass(function(index,class),switch)
+	$('ul li').toggleClass(function(){
+		return 'listitem_' + $(this).index();
+	});
+-------------------------------------
+◎HTML代码
+
+◇html([val|fn]) 
+$('p').html();
+	html()取得第一个匹配元素的html内容。如果选择器匹配多于一个的元素，那么只有第一个匹配元素的HTML内容会被获取。
+$("p").html("Hello <b>world</b>!");
+	用于设定HTML内容的值
+$("p").html(function(n){
+	return "这个 p 元素的 index 是：" + n;
+});
+	使用函数来设置所有匹配元素的内容。
+------------------------------
+◇text([val|fn]) 
+$('p').text();
+	取得所有匹配元素的内容。结果是由所有匹配元素包含的文本内容组合起来的文本。这个方法对HTML和XML文档都有效。
+$("p").text("Hello world!");
+	设置所有 p 元素的文本内容
+$("p").text(function(n){
+	return "这个 p 元素的 index 是：" + n;
+});
+	使用函数来设置所有匹配元素的文本内容。
+-------------------------------
+◇val([val|fn|arr])  
+$("input").val();
+	获得匹配元素文本框的当前值。
+$("input").val("hello world!");
+	设定文本框的值
+$('input:text.items').val(function() {
+	return this.value + ' ' + this.className;
+});
+	设定文本框的值
+
+文档处理
+◆内部插入
+	append();
+	$("p").append("<b>Hello</b>");
+	向每个匹配的元素内部追加内容。
+	appendTo();
+	$("p").appendTo("div");
+	把所有匹配的元素追加到另一个指定的元素元素集合中。
+	prepend();
+	$("p").prepend("<b>Hello</b>");
+	向每个匹配的元素内部前置内容。
+	prependTo();
+	$("p").prependTo("#foo");
+	把所有匹配的元素前置到另一个、指定的元素元素集合中。
+◆外部插入
+	after();
+	$("p").after("<b>Hello</b>");
+	在每个匹配的元素之后插入内容。
+	before();
+	$("p").before("<b>Hello</b>");
+	在每个匹配的元素之前插入内容。
+	insertAfter();
+	$("p").insertAfter("#foo");/与 $("#foo").after("p")相同
+	把所有匹配的元素插入到另一个、指定的元素元素集合的后面。
+	insertBefore();
+	$("p").insertBefore("#foo");/与 $("#foo").before("p")相同。
+	把所有匹配的元素插入到另一个、指定的元素元素集合的前面。
+◆包裹
+	wrap();
+	$("p").wrap(<i></i>);
+	把所有匹配的元素用其他元素的结构化标记包裹起来。
+	unwrap();
+	$("p").unwrap(<i></i>);
+	把所有匹配的元素內所有元素用其他元素的结构化标记包裹起来。
+	wrapall();
+	$("p").wrapAll("<div></div>");
+	将所有匹配的元素用单个元素包裹起来
+	wrapInner();
+	将每一个匹配的元素的子内容(包括文本节点)用一个HTML结构包裹起来
+◆替换
+	replaceWith();
+	$("p").replaceWith("<b>Paragraph. </b>");
+	将所有匹配的元素替换成指定的HTML或DOM元素。
+	replaceAll();
+	$("<b>Paragraph. </b>").replaceAll("p");
+	用匹配的元素替换掉所有 selector匹配到的元素。
+◆删除
+	empty();
+	$("p").empty();
+	删除匹配的元素集合中所有的子节点。
+	remove();
+	$("p").remove();
+	从DOM中删除所有匹配的元素。
+	detach();
+	$("p").detach(".hello");
+	从DOM中删除所有匹配的元素。
+	这个方法不会把匹配的元素从jQuery对象中删除，因而可以在将来再使用这些匹配的元素。与remove()不同的是，所有绑定的事件、附加的数据等都会保留下来。
+
+
+◆复制
+	clone();
+	$("b").clone().prependTo("p");
+	克隆匹配的DOM元素并且选中这些克隆的副本。
+	clone(ture);
+	克隆绑定的事件
+----------------------------------------------------------------------------------------------
+事件
+
+
+页面载入
+
+1、DOM加载完毕
+	当DOM载入就绪可以查询及操纵时绑定一个要执行的函数。
+	ready(fn);
+	$(document).ready(function(){
+		// 在这里写你的代码...
+	});
+	$(fn);
+	$(function(){
+		//在这里写你的代码...
+	});
+2、资源下载完毕	
+	当图片等文件下载完毕
+	load(fn);
+	$(window).load(function(){
+		w=$('img').width();
+		h=$('img').height();
+		alert(w+'-'+h);
+	});
+事件处理
+	on();
+	$("p").on("click", function(){
+		alert( $(this).text() );
+	});
+	$("form").on("submit", function(event) {
+		event.preventDefault();
+	});
+	在选择元素上绑定一个或多个事件的事件处理函数。
+
+	off();
+	$("p").off();
+	$("p").off( "click", "**" );
+	在选择元素上移除一个或多个事件的事件处理函数。
+
+	bind();
+	$('#foo').bind('mouseenter mouseleave', function() {
+	  	$(this).toggleClass('entered');
+	});
+	为每个匹配元素的特定事件绑定事件处理函数。
+	$("button").bind({
+	click:function(){$("p").slideToggle();},
+	mouseover:function(){$("body").css("background-color","red");},  
+	mouseout:function(){$("body").css("background-color","#FFFFFF");}  
+	});
+	同时绑定多个事件类型/处理程序
+
+	unbind();
+	$("p").unbind();
+	$("p").unbind( "click" );
+	bind()的反向操作，从每一个匹配的元素中删除绑定的事件。
+	
+	one();
+	$("p").one("click", function(){
+		alert( $(this).text() );
+	});
+	为每一个匹配元素的特定事件（像click）绑定一个一次性的事件处理函数。
+---------------------------------
+事件委派
+	live();
+	jQuery 给所有匹配的元素附加一个事件处理函数，即使这个元素是以后再添加进来的也有效。这个方法是基本是的.bind() 方法的一个变体。使用 .bind() 时，选择器匹配的元素会附加一个事件处理函数，而以后再添加的元素则不会有。为此需要再使用一次 .bind() 才行
+	die();
+	function aClick() {
+		$("div").show().fadeOut("slow");
+	}
+	$("#unbind").click(function () {
+		$("#theone").die("click", aClick)
+	});
+	从元素中删除先前用.live()绑定的所有事件.(此方法与live正好完全相反。)
+-----------------------------------
+事件切换
+	hover();
+	$("td").hover(
+	function () {
+		$(this).addClass("hover");
+	},
+	function () {
+		$(this).removeClass("hover");
+	}
+	);
+	当鼠标移动到一个匹配的元素上面时，会触发指定的第一个函数。当鼠标移出这个元素时，会触发指定的第二个函数。而且，会伴随着对鼠标是否仍然处在特定元素中的检测（例如，处在div中的图像），如果是，则会继续保持“悬停”状态，而不触发移出事件（修正了使用mouseout事件的一个常见错误）。
+	
+	toggle();
+	$("td").toggle(
+	function () {
+		$(this).addClass("selected");
+	},
+	function () {
+		$(this).removeClass("selected");
+	}
+	);
+	用于绑定两个或多个事件处理器函数，以响应被选元素的轮流的 click 事件。如果元素是可见的，切换为隐藏的；如果元素是隐藏的，切换为可见的。
+---------------------------------------
+事件
+	change([[data],fn]) 
+	当元素的值发生改变时，会发生 change 事件。
+
+	click([[data],fn]) 
+	$("p").click();
+	触发每一个匹配元素的click事件
+	
+	dblclick([[data],fn]) 
+	当双击元素时，会发生 dblclick 事件。
+
+	error([[data],fn]) 
+	$(window).error(function(msg, url, line){
+		jQuery.post("js_error_log.php", { msg: msg, url: url, line: line });
+	});
+	当元素遇到错误（没有正确载入）时，发生 error 事件。这个函数会调用所有绑定到error事件上的函数，包括在对应元素上的浏览器默认行为。可以通过在某个绑定的函数中返回false来防止触发浏览器的默认行为。error事件通常可以在元素由于点击或者tab导航失去焦点时触发。	
+	对于error事件，没有一个公众的标准。在大多数浏览器中，当页面的JavaScript发生错误时，window对象会触发error事件;当图像的src属性无效时，比如文件不存在或者图像数据错误时，也会触发图像对象的error事件。
+
+	a、focus([[data],fn]) 
+	当元素获得焦点时，触发 focus 事件。
+
+	b、blur([[data],fn]) 
+	$("p").blur();
+	当元素失去焦点时触发 blur 事件。
+
+	a、focusin([data],fn) 
+	$("p").focusin(function() {
+		$(this).find("span").css('display','inline').fadeOut(1000);
+	});
+	当元素获得焦点时，触发 focusin 事件。focusin事件跟focus事件区别在于，他可以在父元素上检测子元素获取焦点的情况。
+
+	b、focusout([data],fn) 
+	当元素失去焦点时触发 focusout 事件。
+
+	keypress([[data],fn])  
+	当键盘或按钮被按下时，发生 keypress 事件。
+
+	a、keydown([[data],fn]) 
+	当键盘或按钮被按下时，发生 keydown 事件。
+
+	b、keyup([[data],fn]) 
+	当按钮被松开时，发生 keyup事件。它发生在当前获得焦点的元素上。
+
+	a、mousedown([[data],fn]) 
+	当鼠标指针移动到元素上方，并按下鼠标按键时，会发生 mousedown 事件。
+
+	b、mouseup([[data],fn]) 
+	当在元素上放松鼠标按钮时，会发生 mouseup 事件。
+
+	a、mouseenter([[data],fn]) 不带子元素
+	当鼠标指针穿过元素时，会发生 mouseenter事件。该事件大多数时候会与mouseleave事件一起使用。与 mouseover事件不同，只有在鼠标指针穿过被选元素时，才会触发mouseenter 事件。如果鼠标指针穿过任何子元素，同样会触发 mouseover 事件。
+
+	b、mouseleave([[data],fn]) 
+	当鼠标指针离开元素时，会发生 mouseleave事件。该事件大多数时候会与mouseenter事件一起使用。与 mouseout事件不同，只有在鼠标指针离开被选元素时，才会触发 mouseleave事件。如果鼠标指针离开任何子元素，同样会触发 mouseout 事件。
+
+	mousemove([[data],fn]) 
+	$(document).mousemove(function(e){
+		$("span").text(e.pageX + ", " + e.pageY);
+	});
+	当鼠标指针在指定的元素中移动时，就会发生 mousemove 事件。mousemove事件处理函数会被传递一个变量——事件对象，其.clientX 和 .clientY 属性代表鼠标的坐标
+
+	a、mouseover([[data],fn]) 带子元素
+	当鼠标指针位于元素上方时，会发生 mouseover 事件。
+	与 mouseenter事件不同，不论鼠标指针穿过被选元素或其子元素，都会触发mouseover事件。只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。
+
+	b、mouseout([[data],fn]) 
+	当鼠标指针从元素上移开时，发生 mouseout 事件。
+	与 mouseleave事件不同，不论鼠标指针离开被选元素还是任何子元素，都会触发mouseout事件。只有在鼠标指针离开被选元素时，才会触发 mouseleave 事件。
+
+	resize([[data],fn]) 
+	当调整浏览器窗口的大小时，发生 resize 事件。
+
+	scroll([[data],fn]) 
+	$(window).scroll( function() { /* ...do something... */ } );
+	当用户滚动指定的元素时，会发生 scroll 事件。
+
+	select([[data],fn]) 
+	当 textarea 或文本类型的 input 元素中的文本被选择时，会发生 select 事件。
+
+	submit([[data],fn]) 
+	当提交表单时，会发生submit事件。该事件只适用于表单元素。
+
+	unload([[data],fn]) 
+	$(window).unload( function () { alert("Bye now!"); } );
+	在当用户离开页面时，会发生 unload 事件。
+---------------------------------------------------------------------------------------------
+效果
+	1、基本
+	show([s,[e],[fn]]) 
+	$("p").show()
+	显示隐藏的匹配元素。
+
+	hide([s,[e],[fn]]) 
+	$("p").hide()
+	隐藏显示的元素
+	$("p").hide("slow");
+	用600毫秒的时间将段落缓慢的隐藏
+
+	toggle([speed],[easing],[fn])
+	speed: 	隐藏/显示 效果的速度。默认是 "0"毫秒。可能的值：slow，normal，fast。"
+	easing:	(Optional) 用来指定切换效果，默认是"swing"，可用参数"linear"
+	fn:	在动画完成时执行的函数，每个元素执行一次。
+
+	$('td').toggle();
+	用于绑定两个或多个事件处理器函数，以响应被选元素的轮流的 click 事件。如果元素是可见的，切换为隐藏的；如果元素是隐藏的，切换为可见的。
+
+
+	2、滑动
+	slideDown([s],[e],[fn]) 
+	$("p").slideDown("slow");
+	通过高度变化（向下增大）来动态地显示所有匹配的元素，在显示完成后可选地触发一个回调函数。
+	这个动画效果只调整元素的高度，可以使匹配的元素以“滑动”的方式显示出来。在jQuery1.3中，上下的padding和margin也会有动画，效果更流畅。
+
+	slideUp([s],[e],[fn]]) 
+	$("p").slideUp("slow");
+	通过高度变化（向上减小）来动态地隐藏所有匹配的元素，在隐藏完成后可选地触发一个回调函数。
+	这个动画效果只调整元素的高度，可以使匹配的元素以“滑动”的方式隐藏起来。在jQuery1.3中，上下的padding和margin也会有动画，效果更流畅。
+	slideToggle([s],[e],[fn]) 
+	通过高度变化来切换所有匹配元素的可见性，并在切换完成后可选地触发一个回调函数。
+	$("p").slideToggle("slow");
+	用600毫秒缓慢的将段落滑上或滑下
+
+	3、淡入淡出
+	fadeIn([s],[e],[fn]) 
+	$("p").fadeIn("slow");
+	通过不透明度的变化来实现所有匹配元素的淡入效果，并在动画完成后可选地触发一个回调函数。这个动画只调整元素的不透明度，也就是说所有匹配的元素的高度和宽度不会发生变化。
+
+	fadeOut([s],[e],[fn]) 
+	$("p").fadeOut("slow");
+	通过不透明度的变化来实现所有匹配元素的淡出效果，并在动画完成后可选地触发一个回调函数。这个动画只调整元素的不透明度，也就是说所有匹配的元素的高度和宽度不会发生变化。
+
+	fadeTo([[s],o,[e],[fn]]) 
+	$("p").fadeTo("slow", 0.66);
+	把所有匹配元素的不透明度以渐进方式调整到指定的不透明度，并在动画完成后可选地触发一个回调函数。这个动画只调整元素的不透明度，也就是说所有匹配的元素的高度和宽度不会发生变化。
+
+	fadeToggle([s,[e],[fn]]) 
+	$("p").fadeToggle("slow","linear");
+	通过不透明度的变化来开关所有匹配元素的淡入和淡出效果，并在动画完成后可选地触发一个回调函数。这个动画只调整元素的不透明度，也就是说所有匹配的元素的高度和宽度不会发生变化。
+
+	4、自定义
+	animate(p,[s],[e],[fn])
+	params:一组包含作为动画属性和终值的样式属性和及其值的集合
+	speed:三种预定速度之一的字符串("slow","normal", or "fast")或表示动画时长的毫秒数值(如：1000)
+	easing:要使用的擦除效果的名称(需要插件支持).默认jQuery提供"linear" 和 "swing".
+	fn:在动画完成时执行的函数，每个元素执行一次。
+	// 在一个动画中同时应用三种类型的效果
+	$("#go").click(function(){
+		$("#block").animate({ 
+			width: "90%",
+			height: "100%", 
+			fontSize: "10em", 
+			borderWidth: 10
+		}, 1000 );
+	});
+
+	stop([c],[j])
+	$("#stop").click(function(){
+		$("#box").stop();
+	});
+	停止所有在指定元素上正在运行的动画。
+	如果队列中有等待执行的动画(并且clearQueue没有设为true)，他们将被马上执行
+
+	delay(d,[q]) 
+	duration:延时时间，单位：毫秒
+	queueName:队列名词，默认是Fx，动画队列。
+	设置一个延时来推迟执行队列中之后的项目。用于将队列中的函数延时执行。他既可以推迟动画队列的执行，也可以用于自定义队列。
+	$('#foo').slideUp(300).delay(800).fadeIn(400);
+	在.slideUp() 和 .fadeIn()之间延时800毫秒。
+
+	5、设置
+	jQuery.fx.off属性用于对所有动画进行全局禁用或启用。默认值是 false，它允许动画正常运行。当设置为 true 时，将禁用所有动画方法，这样会把元素设置为其最后的状态，而不是显示效果。 
+	jQuery.fx.off = true;	禁用动画
+	jQuery.fx.off = false;	启用动画
+
+	jQuery.fx.interval = 13; 属性用于改变以毫秒计的动画运行速率。可操作该属性来调整动画运行的每秒帧数。默认值是 13 毫秒。该属性常用于修改动画运行的每秒帧数。降低这个值能够使动画在更快的浏览器中运行得更流畅，但这么做也行会影响性能。
+
+
+→→→→→→→→→→→→→→→→→→→→→→→ 		        	 		→→→→→→→→→→→→→→→→→→→→→→→
+﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎		        			﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 		        			◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇ 		        			◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
+◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎ 		        			◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎
+○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○ 		        	 		○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○
+∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷ 		        	 		∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷
+√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√ 		        	 		√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+＊→﹎◆◇◎○∷√
+1、2、3、4、5、6、7、(1)(2)(3)(4)(5)(6)(7)						   	(1)(2)(3)(4)(5)(6)(7)1、2、3、4、5、6、7、
+→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→→
+﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎﹎
+◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
+◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎◎
+○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○○
+∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷∷
+√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+鼠标码和键盘码：
+$(document).mousedown(function(event){
+	code=event.button;
+	document.title=code;
+});
+document.onkeydown=function(event){
+	kd=event.keyCode;
+	document.title=kd;
+}
+鼠标拖拽实例：
+obj=$('#imgo');
+function drag(obj){
+	obj.bind('mousedown',start);
+	function start(event){
+		deltaX=event.clientX-obj.offset().left;
+		deltaY=event.clientY-obj.offset().top;
+		$(document).bind('mousemove',move);
+		$(document).bind('mouseup',stop);
+		return false;
+	}
+	function move(event) {
+		obj.css({
+			'left':(event.clientX-deltaX)+'px',
+			'top':(event.clientY-deltaY)+'px'
+		})
+		return false;
+	}
+	function stop(){
+		$(document).unbind('mousemove',move);
+		$(document).unbind('mouseup',stop);
+	}
+}
+drag(obj);
+----------------------------------------------------------------------------	
+

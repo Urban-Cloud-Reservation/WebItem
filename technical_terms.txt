@@ -1,0 +1,13 @@
+index		//索引；指针
+padding	//填料，垫料
+margin		//边缘；页边的空白
+border		//边界
+navigator	//航海家，领航员
+agent		//代理人，中介
+tag		//标签；名称；结束语；附属物
+siblings	// 兄弟姐妹；同科
+TIOBE 		//排行榜世界排名开发语言排行榜编程语言排行榜
+TIOBE IEEE Spectrum RedMonk //编程语言排行榜
+
+
+

@@ -1,0 +1,538 @@
+1、bootstrap安装
+○ 	<link rel="stylesheet" type="text/css" href="bs/css/bootstrap.css">
+	<script src="bs/js/jquery-3.2.1.js"></script>
+	<script src="bs/js/bootstrap.js"></script>
+○html5文档类型：
+<!DOCUTYPE html>
+○移动端设备的真实宽度：
+<meta name="viewport" content="width=device,initial-scale=maximum-scale=1, user-scalable=no">
+-------------------------------------------------------------------------------------
+Bootsrap学习大纲
+1、css样式
+○栅格系统
+○排版
+○代码
+○表格
+○表单
+○按钮
+○图片
+○辅助类
+○响应式工具
+
+2、css组件
+○glyphicons图标
+○下拉菜单
+○按钮组
+○输入框组
+○导航
+○导航条
+○路径导航
+○分页
+○标签
+○徽章
+○巨幕
+○页头
+○缩略图
+○警告框
+○进度条
+○媒体对象
+○列表组
+○面板
+○响应式嵌入内容
+○well
+3、js插件
+○模态框
+○下拉菜单
+○滚动监听
+○标签页
+○工具提示
+○弹出框
+○警告框
+○按钮
+○折叠效果
+○幻灯片效果
+○固定侧边栏
+----------------------------------------------------------------------------------------------
+栅格系统
+1、row		一行12列
+2、col-md-4占三列的宽
+
+排版：
+1、标题(.page-header)
+2、段落(.lead)
+3、mark标记线
+4、del删除线
+5、small小号字体
+6、文本对齐
+7、文本大小写
+8、无样式列表(.list-unstyled)
+
+代码：
+1、code
+2、pre
+3、kbd
+
+表格：
+1、table
+2、table-striped
+3、table-bordered
+4、table-hover
+表格颜色：
+1、info
+2、success
+3、active
+4、warning
+5、danger
+
+响应式表格：
+<div class="table-responsive">
+	<div class="table">
+	</div>
+</div>
+
+按钮：
+.btn
+.bth-default灰色
+.btn-primary蓝色
+.btn-success绿色
+.btn-info青色
+.btn-warning黄色
+.btn-danger红色
+.btn-link 
+
+图片：
+.img-rounded		圆角
+.img-circle		圆形
+.img-thumbnail	圆角背景为白有padding
+辅助类：
+文本颜色
+.text-muted灰色
+.text-primary蓝色
+.text-success绿色
+.text-info青色
+.text-warning黄色
+.text-danger红色
+背景颜色
+.bg-primary蓝色
+.bg-success绿色
+.bg-info青色
+.bg-warning黄色
+.bg-danger红色
+关闭
+.close
+三角
+.caret
+浮动
+.pull-left左
+.pull-right右
+.clearfix清除浮动
+块居中
+.center-block
+现实和隐藏
+.hide
+.show
+响应式工具
+.img-responsive
+.table-responsive
+
+----------------------------------------------------------------------------------------------
+组件
+○glyphicons图标
+○下拉菜单
+○按钮组
+○输入框组
+○导航
+○导航条
+○路径导航
+○分页
+○标签
+○徽章
+○巨幕
+○页头
+○缩略图
+○警告框
+○进度条
+○媒体对象
+○列表组
+○面板
+○响应式嵌入内容
+○well
+3、js插件
+○模态框
+○下拉菜单
+○滚动监听
+○标签页
+○工具提示
+○弹出框
+○警告框
+○按钮
+○折叠效果
+○幻灯片效果
+○固定侧边栏
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+○○○○○○○○○○
+○○○○○○○○○○○○○○○○○○○○○○
+布局容器		.container
+100%width容器	.container-fluid
+
+栅格系统
+1、row		一行12列
+2、col-md-4 占三列的宽
+=====================================================================================================
+排版：
+1、 标题.page-header
+    副标题.small
+2、	段落.lead
+	通过添加 .lead 类可以让段落突出显示。
+	为文本添加下划线，使用 <u> 标签
+	额外插入的文本使用 <ins> 标签
+	对于没用的文本使用 <s> 标签。
+	对于被删除的文本使用 <del> 标签。
+	对于不需要强调的inline或block类型的文本，使用 <small>标签包裹，其内的文本将被设置为父容器字体大小的 85%。
+	通过增加 font-weight 值强调一段文本。
+	用斜体强调一段文本<em></em>
+	在 HTML5 中可以放心使用 <b> 和 <i> 标签。<b> 用于高亮单词或短语，不带有任何着重的意味；而 <i> 标签主要用于发言、技术词汇等。
+	<abbr title="attribute">attr</abbr>
+	当鼠标悬停在缩写和缩写词上时就会显示完整内容，Bootstrap 实现了对 HTML 的 <abbr> 元素的增强样式。
+	<abbr title="HyperText Markup Language" class="initialism">HTML</abbr>
+	为缩略语添加 .initialism 类，可以让 font-size 变得稍微小些
+
+	<address>
+	  <strong>Twitter, Inc.</strong><br>
+	  795 Folsom Ave, Suite 600<br>
+	  San Francisco, CA 94107<br>
+	  <abbr title="Phone">P:</abbr> (123) 456-7890
+	</address>
+	<address>
+	  <strong>Full Name</strong><br>
+	  <a href="mailto:#">first.last@example.com</a>
+	</address>
+
+	<blockquote class="blockquote-reverse">
+	  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+	  <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+	</blockquote>
+	
+	有序列表
+	<ol>
+	  <li>...</li>
+	</ol>
+	无序列表
+	<ul>
+	  <li>...</li>
+	</ul>
+	移除了默认的 list-style 样式和左侧外边距的一组元素（只针对直接子元素）。这是针对直接子元素的，也就是说，你需要对所有嵌套的列表都添加这个类才能具有同样的样式。
+	<ul class="list-unstyled">
+	  <li>...</li>
+	</ul>
+	通过设置 display: inline-block; 并添加少量的内补（padding），将所有元素放置于同一行。
+	<ul class="list-inline">
+	  <li>...</li>
+	</ul>
+	描述带有描述的短语列表。
+	<dl>
+	  <dt>...</dt>
+	  <dd>...</dd>
+	  <dt>...</dt>
+	  <dd>...</dd>
+	</dl>
+	水平排列的描述
+	<dl class="dl-horizontal">
+	  <dt>...</dt>
+	  <dd>...</dd>
+	</dl>
+
+	代码段
+	<pre class="pre-scrollable"></pre>
+	辅助类
+	情境文本颜色
+	通过颜色来展示意图，Bootstrap提供了一组工具类。这些类可以应用于链接，并且在鼠标经过时颜色可以还可以加深，就像默认的链接一样。
+	<p class="text-muted">...</p>
+	<p class="text-primary">...</p>
+	<p class="text-success">...</p>
+	<p class="text-info">...</p>
+	<p class="text-warning">...</p>
+	<p class="text-danger">...</p>
+	情境背景色
+	和情境文本颜色类一样，使用任意情境背景色类就可以设置元素的背景。链接组件在鼠标经过时颜色会加深，就像上面所讲的情境文本颜色类一样。
+	<p class="bg-primary">...</p>
+	<p class="bg-success">...</p>
+	<p class="bg-info">...</p>
+	<p class="bg-warning">...</p>
+	<p class="bg-danger">...</p>
+
+
+3、文本对齐
+	<p class="text-left">Left aligned text.</p>
+	<p class="text-center">Center aligned text.</p>
+	<p class="text-right">Right aligned text.</p>
+	<p class="text-justify">Justified text.</p>
+	<p class="text-nowrap">No wrap text.</p>
+4、文本大小写
+	<p class="text-lowercase">Lowercased text.</p>
+	<p class="text-uppercase">Uppercased text.</p>
+	<p class="text-capitalize">Capitalized text.</p>
+
+====================================================================================================
+表格：
+1、table          
+2、table-striped  横条
+3、table-bordered 竖边框
+4、table-hover	鼠标悬停
+5、table-condensed  紧缩表格通过添加该类可以让表格更加紧凑，单元格中的内补（padding）均会减半
+
+表格颜色：
+1、info	蓝
+2、success 绿
+3、active 鼠标悬停在行或单元格上时所设置的颜色
+4、warning 黄
+5、danger 红
+
+响应式表格：
+<div class="table-responsive">
+	<div class="table">
+	</div>
+</div>
+=====================================================================================================
+表单
+<form>
+	<div class="form-group sr-only">
+		<label for="exampleInputEmail1">Email address</label>
+		<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputPassword1">Password</label>
+		<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputFile">File input</label>
+		<input type="file" id="exampleInputFile"><p class="help-block">Example block-level help text here.</p>
+	</div>
+	<div class="checkbox">
+		<label>
+			<input type="checkbox"> Check me out
+		</label>
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+输入框
+
+包括大部分表单控件、文本输入域控件，还支持所有 HTML5 类型的输入控件： text、password、datetime、datetime-local、date、month、time、week、number、email、url、search、tel 和 color。
+
+
+
+<textarea class="form-control" rows="3"></textarea>
+
+多选和单选框
+
+多选框（checkbox）用于选择列表中的一个或多个选项，而单选框（radio）用于从多个选项中只选择一个。
+
+设置了 disabled 属性的单选或多选框都能被赋予合适的样式。对于和多选或单选框联合使用的 <label> 标签，如果也希望将悬停于上方的鼠标设置为“禁止点击”的样式，请将 .disabled 类赋予 .radio、.radio-inline、.checkbox、.checkbox-inline 或 <fieldset>
+
+<label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+</label>
+<label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+</label>
+<label class="checkbox-inline">
+  <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+</label>
+
+<label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
+</label>
+<label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
+</label>
+<label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
+</label>
+
+
+<select class="form-control">
+  <option>1</option>
+  <option>2</option>
+  <option>3</option>
+  <option>4</option>
+  <option>5</option>
+</select>
+
+如果需要在表单中将一行纯文本和 label 元素放置于同一行，为 <p> 元素添加 .form-control-static 类即可。
+
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">email@example.com</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+    </div>
+  </div>
+</form>
+
+焦点状态
+
+我们将某些表单控件的默认 outline 样式移除，然后对 :focus 状态赋予 box-shadow 属性。
+
+禁用
+<input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled>
+
+<form>
+  <fieldset disabled>
+    <div class="form-group">
+      <label for="disabledTextInput">Disabled input</label>
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+    </div>
+    <div class="form-group">
+      <label for="disabledSelect">Disabled select menu</label>
+      <select id="disabledSelect" class="form-control">
+        <option>Disabled select</option>
+      </select>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"> Can't check this
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>
+
+为输入框设置 readonly 属性可以禁止用户修改输入框中的内容。处于只读状态的输入框颜色更浅（就像被禁用的输入框一样），但是仍然保留标准的鼠标状态。
+<input class="form-control" type="text" placeholder="Readonly input here…" readonly>
+
+
+Bootstrap 对表单控件的校验状态，如 error、warning 和 success 状态，都定义了样式。使用时，添加 .has-warning、.has-error 或 .has-success 类到这些控件的父元素即可。任何包含在此元素之内的 .control-label、.form-control 和 .help-block 元素都将接受这些校验状态的样式。
+====================================================================================================
+按钮
+
+按钮
+可作为按钮使用的标签或元素
+
+为 <a>、<button> 或 <input> 元素添加按钮类（button class）即可使用 Bootstrap 提供的样式。
+
+针对组件的注意事项
+
+虽然按钮类可以应用到 <a> 和 <button> 元素上，但是，导航和导航条组件只支持 <button> 元素。
+链接被作为按钮使用时的注意事项
+
+如果 <a> 元素被作为按钮使用 -- 并用于在当前页面触发某些功能 -- 而不是用于链接其他页面或链接当前页面中的其他部分，那么，务必为其设置 role="button" 属性。
+
+<!-- Standard button -->
+<button type="button" class="btn btn-default">（默认样式）Default</button>
+
+<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+<button type="button" class="btn btn-primary">（首选项）Primary</button>
+
+<!-- Indicates a successful or positive action -->
+<button type="button" class="btn btn-success">（成功）Success</button>
+
+<!-- Contextual button for informational alert messages -->
+<button type="button" class="btn btn-info">（一般信息）Info</button>
+
+<!-- Indicates caution should be taken with this action -->
+<button type="button" class="btn btn-warning">（警告）Warning</button>
+
+<!-- Indicates a dangerous or potentially negative action -->
+<button type="button" class="btn btn-danger">（危险）Danger</button>
+
+<!-- Deemphasize a button by making it look like a link while maintaining button behavior -->
+<button type="button" class="btn btn-link">（链接）Link</button>
+
+尺寸
+
+需要让按钮具有不同尺寸吗？使用 .btn-lg、.btn-sm 或 .btn-xs 就可以获得不同尺寸的按钮。
+
+通过给按钮添加 .btn-block 类可以将其拉伸至父元素100%的宽度，而且按钮也变为了块级（block）元素。
+
+
+<button type="button" class="btn btn-primary btn-lg btn-block active">（块级元素）Block level button</button>
+<button type="button" class="btn btn-default btn-lg btn-block active">（块级元素）Block level button</button>
+
+激活状态
+
+当按钮处于激活状态时，其表现为被按压下去（底色更深、边框夜色更深、向内投射阴影）。对于 <button> 元素，是通过 :active 状态实现的。对于 <a> 元素，是通过 .active 类实现的。然而，你还可以将 .active 应用到 <button> 上（包含 aria-pressed="true" 属性)），并通过编程的方式使其处于激活状态。
+button 元素
+
+由于 :active 是伪状态，因此无需额外添加，但是在需要让其表现出同样外观的时候可以添加 .active 类
+可以为基于 <a> 元素创建的按钮添加 .active 类。
+
+禁用状态
+
+通过为按钮的背景设置 opacity 属性就可以呈现出无法点击的效果。
+button 元素
+为 <button> 元素添加 disabled 属性，使其表现出禁用状态。
+<button type="button" class="btn btn-lg btn-primary" disabled="disabled">Primary button</button>
+<button type="button" class="btn btn-default btn-lg" disabled="disabled">Button</button>
+
+<a href="#" class="btn btn-primary btn-lg disabled" role="button">Primary link</a>
+<a href="#" class="btn btn-default btn-lg disabled" role="button">Link</a>
+
+我们把 .disabled 作为工具类使用，就像 .active 类一样，因此不需要增加前缀。 
+
+关闭按钮
+通过使用一个象征关闭的图标，可以让模态框和警告框消失。
+<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+三角符号
+通过使用三角符号可以指示某个元素具有下拉菜单的功能。注意，向上弹出式菜单中的三角符号是反方向的。
+<span class="caret"></span>
+浮动
+<div class="pull-left">...</div>
+<div class="pull-right">...</div>
+清除浮动通过为父元素添加 .clearfix 类可以很容易地清除浮动（float）。这里所使用的是 Nicolas Gallagher 创造的 micro clearfix 方式。此类还可以作为 mixin 使用。
+<!-- Usage as a class -->
+<div class="clearfix">...</div>
+
+让内容块居中为任意元素设置 display: block 属性并通过 margin 属性让其中的内容居中。下面列出的类还可以作为 mixin 使用
+<div class="center-block">...</div>
+
+显示或隐藏内容
+.show 和 .hidden 类可以强制任意元素显示或隐藏(对于屏幕阅读器也能起效)。这些类通过 !important 来避免 CSS 样式优先级问题，就像 quick floats 一样的做法。注意，这些类只对块级元素起作用，另外，还可以作为 mixin 使用。
+.hide 类仍然可用，但是它不能对屏幕阅读器起作用，并且从 v3.0.1 版本开始就不建议使用了。请使用 .hidden 或 .sr-only 。
+另外，.invisible 类可以被用来仅仅影响元素的可见性，也就是所，元素的 display 属性不被改变，并且这个元素仍然能够影响文档流的排布。
+
+<div class="show">...</div>
+<div class="hidden">...</div>
+
+图片替换
+
+使用 .text-hide 类或对应的 mixin 可以用来将元素的文本内容替换为一张背景图。
+
+<h1 class="text-hide">Custom heading</h1>
+
+// Usage as a mixin
+.heading {
+  .text-hide();
+}
+
+图片：
+------------
+		<img src="holder.js/263x200" alt="..." class="img-rounded">
+		<img src="holder.js/263x200" alt="..." class="img-circle">
+		<img src="holder.js/263x200" alt="..." class="img-thumbnail">
+=====================================================================================================
+Bootstrap 使用了两种颜色模式：灰度颜色和语义颜色。灰度颜色用于快速获取常用的黑色色调；语义颜色包含了各种赋予语义的颜色值。
+@gray-darker:  lighten(#000, 13.5%); // #222
+@gray-dark:    lighten(#000, 20%);   // #333
+@gray:         lighten(#000, 33.5%); // #555
+@gray-light:   lighten(#000, 46.7%); // #777
+@gray-lighter: lighten(#000, 93.5%); // #eee
+
+@brand-primary: darken(#428bca, 6.5%); // #337ab7
+@brand-success: #5cb85c;
+@brand-info:    #5bc0de;
+@brand-warning: #f0ad4e;
+@brand-danger:  #d9534f;
+----------------------------------------------------
+图标
+以下两个变量用于设置图标文件的位置和文件名。
+@icon-font-path:          "../fonts/";
+@icon-font-name:          "glyphicons-halflings-regular";
+

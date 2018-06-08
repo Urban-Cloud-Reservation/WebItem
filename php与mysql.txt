@@ -1,0 +1,3072 @@
+PHP基础笔记
+第一章 PHP环境搭建与变量使用
+第二章 PHP变量转换测试、常量与运算符
+第三章 PHP流程控制与函数
+第四章 PHP中的数组定义、遍历与超全局数组
+第五章 数组的相关处理函数
+第六章 字符串相关处理函数
+第七章 PHP数学对象、日期对象
+第八章 错误处理
+第九章 PHP动态图相处理
+第十章 PHP文件系统与文件上传下载
+第十一章 PHP面向对象编程
+第十二章 Mysql数据库设计
+第十三章 Mysql数据库操作
+第十四章 PHP PDO数据库对象
+第十五章 Cookie与Session技术
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Wamp环境搭建：
+1、wamp集成包（windows下建议使用）
+2、单独安装apache、mysql和php软件包（linux下建议使用）
+-----------------------------------------------------------------------------------
+php版本切换
+1、解压php-5.6.6-Win64-VC11-x64，并改名为php5.6.6
+2、把php5.6.6拷贝到wamp/bin/php下即可
+3、把php5.5.12中的"phpForApache.ini"和"wampserver.conf"拷贝到php5.6.6下
+4、把phpForApache.ini中的extension_dir = "c:/wamp/bin/php/php5.5.12/ext/"改为extension_dir = "c:/wamp/bin/php/php5.6.6/ext/"即可
+5、把wamp软件重启一下，即可切换php5.6.6版本
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+打开mysql控制台	
+enter 进入mysql数据库
+默认用户名：root
+----------------------------------
+cmd命令符打开mysql时 输入
+mysql -u root -pysw	 
+回车进入
+----------------------------------	
+改密码输入代码如下：
+set password=passwod('ysw');
+浏览器输入localhost/phpmyadmin 回车打开php文件的mysql服务器控制台
+----------------------------------
+访问权限禁止时
+在apps文件夹下的phpmyadmin软件下找到config.inc.php文件
+注释代码以下：
+$cfg['Servers'][$i]['auth_type'] = 'config';
+即可正常打开
+-----------------------------------------
+如何访问phpmysql
+http://localhost/phpmyadmin
+-----------------------------------------
+本地服务器域名为localhost
+访问服务器必须用域名或ip地址
+
+如何修改mysql服务器的登录密码：
+1、打开mysql命令客户端控制台
+2、set password=password('123');
+
+默认首页：
+index.html
+index.php
+php页面的任意地方可写php 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+php
+php变量定义：(变量前加$)
+$name='user1';
+echo "my name is $name .";
+
+把提示错误屏蔽掉：
+C:\wamp64\bin\php\php5.6.25/phpForApache.ini
+error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED
+
+养成习惯------>出现变量则用{ }括起来明确指定变量----->避免混乱
+--------------------------------
+单双引号的区别：
+" "双引号中可解析变量 
+' ' 单引号中不能解析变量
+---------------------------------
+字符串连接符：
+1、点
+
+变量类型(8种)：
+一、标准类型
+1、整型
+2、浮点型
+3、字符串
+4、布尔型
+
+二、复合类型
+5、数组
+6、对象
+
+三、特殊类型
+7、资源
+8、NULL
+
+整型：
+$num=10;
+
+浮点型：
+$num=10.5;
+
+3、字符串
+$str='hallo world';
+
+4、布尔型
+$str=ture;
+
+5、数组
+索引数组
+$arr=array(1,2,5);
+$arr=array('jdd1','jdd2','jdd3');
+php将json对象与数组合二为一
+
+关联数组
+$arr=array(
+	'name'=>'jdd',
+	'age'=>'20',
+	'sex'=>'nv'
+	);
+
+混合数组
+$arr=array('jdd1','jdd2','sex'=>'nv');
+
+6、对象
+$obj=new Object();
+现有类后有对象
+class Person{
+	public $name='jdd';
+	public $sex='nv';
+	public $age='20';
+
+	public function say{
+	echo "my name is {$this->name}";
+	}
+}
+
+$jdd=new Person();
+
+js是基于对象语言(类不用自己写)
+php是面向对象语言
+js中对象与属性用.连接
+php中对象与属性用->连接
+
+7、资源
+$link=mysql_content('localhost','root','123');
+
+8、NULL
+
+php设置默认字符集为utf-8
+header('content-type:text/html;charset=utf-8');
+
+变量输出：
+$str='user'
+1、echo
+echo $str;
+2、var_dump();输出变量的值并打印变量类型和变量长度
+var_dump($str);
+3、print;
+print $str;
+4、printf;格式化输出
+$a='123abc';
+$b='345';
+printf('-------%d--------%s-------',$a,$b);
+5、sprintf;  只返回格式化字符串
+$a='123abc';
+$b='345';
+$ss=sprintf('-------%d--------%s-------',$a,$b);
+echo "$ss";
+6、print_r();
+echo '<pre>';
+print_r($arr);
+echo '</pre>';
+专门用来打印数组
+------------------------------------------------------------------------------------
+测试变量是否存在
+isset();
+var_dump(isset());
+返回值为假的情况有未定义和null两种
+
+测量变量是否为空
+empty();
+返回值为真的情况有：
+$asd=null;
+$asd=' ';
+$asd='0';
+$asd=0;
+$asd=0.0;
+$asd=false;
+$asd=array();
+
+变量类型测试
+1、获取类型结果(返回值为字符串)
+gettype();
+echo gettype($asd);
+
+2、精确判断类型(返回值为布尔类型)
+is_int($asd);
+is_string($asd);
+is_array($asd);
+is_object($asd);
+is_null($asd);
+is_resource($asd);
+is_scalar($asd);
+is_callable($asd);
+
+变量类型转换
+变量类型自动转换：
+1、整型转字符串
+$a=10;
+echo $a.'abc';
+2、字符型转整型
+$a='10abc';
+echo $a+10;
+3、所有类型转布尔类型
+为假的情况共7种：
+$asd=null;
+$asd=' ';
+$asd='0';
+$asd=0;
+$asd=0.0;
+$asd=false;
+$asd=array();
+
+变量强制转换
+(int)$str
+(float)$str
+(bool)$str
+(string)$str
+(array)$str
+(object)$str
+------------------------------------------------------------------------------------
+常量的定义和使用
+1、定义：
+define('HOST','localhost');
+
+2、输出：
+echo HOST;
+echo 'my name is '.HOST.'!!!';
+常量在连接时只能使用.连接！常量名需大写！
+
+3、判断一个常量在不在
+var_dump(define('HOST'));
+
+预定义常量：
+__LINE__当前输出行数
+__FILE__当前文件目录
+M_PI圆周率
+__FUNCTION__当前函数名
+------------------------------------------------------------------------------------
+运算符
+一、一元运算符++   --
+$a++
+==$a
+二、二元运算符
+    数学运算符
+	+-*?%
+    赋值运算符
+	= += -= *= /= %= .=
+    比较运算符
+    ==
+    !=
+    >
+    <
+    >=
+    <=
+    ===
+    !==
+    逻辑运算符(开关)
+    $$(与)
+    ||(或)
+    |(非)
+
+
+三、三元运算符
+	$a?$b:$c;
+
+运算符优先级：
+1、++，--
+2、*   /  %
+3、+  -  .
+4、<  <= > >=
+5、==  !=  ===  !== 
+6、&   |
+7、&& ||
+8、？ ：
+9、=  +=  -=  *=  /= %=
+
+@用于临时屏蔽错误
+
+->用于对象调用属性和方法
+$jdd=new Person();
+echo "my age is {$jdd->age}</br>";
+echo $jdd->say();
+
+=>用于关联数组
+$arr2=array(
+	'name'=>'jdd',
+	'age'=>'20',
+	'sex'=>'nv'
+	);
+
+new
+instanceof
+class Person1{}
+$obj= new Person1();
+var_dump($obj instanceof Person1);
+------------------------------------------------------------------------------------
+单分支结构
+1、if...elseif...else
+
+多分支结构：
+1、while
+2、for
+特殊流程控制：
+1、break
+结束整个循环
+2、continue
+结束本次循环
+3、exit（常用于分段代码测试）
+结束整个页面脚本
+4、die()
+等同于exit
+
+-------------------------------------------------------------------------
+函数
+1、语言结构
+if()	for()	while()	switch()	
+array()	echo()	print()	list()
+isset()	unset()	foreach()
+exit()	die()	include()
+required()	empty()
+2、系统函数
+count();
+array_merge();
+3、自定义函数
+function sum($i,$j){
+	return $i+$j;
+}
+echo sum(2,5);
+---------------
+回调函数：
+fuction show($i,$j,$s){
+	return $s{$i,$j}
+}
+fuuction sum(){
+	return $a+$b;
+}
+echo show(1,2,'sum');
+
+变量的作用域：
+局部变量
+全局变量
+超全局变量
+	1、常量
+	2、预定义常量
+	3、超全局数组
+$i=10;
+function show(){
+	global $i;	//全局变量
+	$i++;		//局部变量
+}
+show();
+函数里面变量与函数外变量互不相关
+
+function show(){
+	static $i;	//静态变量	变量与与外界不干扰
+	$i++;		
+}
+show();
+-----------------------------------------------------------------------
+函数参数：
+1.自定义参数
+2.默认参数
+3.回调参数
+4.引用参数
+-------------------
+引用变量：
+$a=10;
+$b=&$a;
+$b=122;
+echo $a;
+------------------
+变量函数
+function show(){
+	echo "sadfasdfsdfd";
+	echo "sadfasdfsdfd";
+	}
+$var='show';
+$var();
+------------------
+判断是否是内置函数
+function_exists("tab");
+------------------
+获取当前函数所传进的所有变量，以数组形式返回
+func_get_args();
+获取当前函数所传进的变量个数
+func_num_args();
+
+function showw(){
+	$arr=func_get_args();
+	echo "<pre>";
+	print_r($arr);
+	echo "</pre>";
+}
+showw(2,3,5,8,5,8);
+-----------------------------------------------
+.递归函数：
+思路：由外向内延伸，又由内向外展开
+每一层都先执行外层中的内层函数上部分，执行到最底层时开始执行最底层的外层函数中内层函数的下部分！直到执行完第一层函数的内层函数的下部分！ 
+$b=4;
+function sum($i){
+	$tot+=$i;
+	echo "$i<br/>";
+	if ($i>1) {
+		$tot+=sum($i-1);
+	}
+	echo "$i<br/>";
+	return $tot;
+}
+echo sum($b)
+---------------
+提高代码重用性：
+<?php
+include "idf.php";
+?>
+<?php
+requuire "idf.php";
+?>
+1.include包含脚本失败时不会阻止脚本的执行
+2.require包含脚本失败时会阻止脚本的执行
+-----------------------------------------------
+
+数组元素（键值对）
+1.下标|建|key
+2.值|value
+
+数组分类：
+索引数组
+$arr=array(1,3,5)
+关联数组
+$arr=array('name'=>'shiyi','xex'=>'name','age'=>20);
+混合数组
+$arr=array('shiyi','xex'=>'name','age'=>20);
+---------------------
+$arr0=array(
+	0=>'jdd',
+	'age'=>'20',
+	3=>'nv'
+	);
+$arr0[]=jjh;	//数组定义时无键值时在原数组兼职基础上加
+$arr0[8]=jjh;
+$arr0[]=jjh;
+$arr0[78]=jjh;
+$arr0[]=jjh;
+$arr0[2]=jjh;
+$arr0[]=jjh;
+echo "<pre>";
+print_r($arr0);
+echo "</pre>";
+--------------------
+多维数组
+$arro=array('jdd1','jdd2','jdd3',3=>'jdd4','sex'=>'nv');
+$arrp=array('jdd1','jdd2','jdd3',3=>'jdd4','sex'=>'nv');
+$arrk=array('jdd1','jdd2','jdd3',3=>'jdd4','sex'=>'nv');
+// 数组遍历
+$arr0=array(
+	0=>'jdd',
+	'age'=>'20',
+	3=>'nv'
+	);
+$arr0[3]=$arro;
+$arr0[3][3]=$arrp;
+$arr0[3][3][3]=$arrp;
+$arr0[3][3][3][3]=$arrp;
+多维数组遍历
+foreach($arr0[3] as $key=>$value){
+	echo $key."=>".$value.'<br>';
+}
+打印数组
+1、print_r($arr);
+2、var_dump($arr);
+为了打印更清晰在外面加pre标签
+echo '<pre>';
+print_r($arr);
+echo '</pre>';
+-----------------------------------------------
+.数组遍历
+for(){}
+当数组遍历时，字符串下标或者下表为跨度大不适用
+
+常用遍历方法
+foreach($arr as $key=>$value){
+	echo $key."=>".$value;
+}
+list //看不到字符串下标的值
+each
+while
+
+next()
+prev()
+end()
+reset()
+
+list必须要数组为索引下标,list以数组下标顺序赋值给变量
+$arr3=array('jdd1','jdd2','jdd3',3=>'jdd4','sex'=>'nv');
+list($z,$x,$v,$s)=$arr3;
+echo $z;
+echo "<br/>";
+echo $x;
+echo "<br/>";
+echo $s;
+echo "<br/>";
+echo $v;
+echo "<br/>";
+
+$arr4=array('jdd1','jdd2','jdd3',3=>'j;;
+echo "<pre>";
+print_r($arr7);
+echo "</pre>";
+此代码显示效果为：
+Array
+(
+    [1] => jdd1
+    [value] => jdd1
+    [0] => 0
+    [key] => 0
+)
+则：原始数组遍历这样玩：
+$arr4=array('jdd1','jdd2','jdd3',3=>'jdd4','sex'=>'nv');
+while (list($k,$v)=each($arr4)) {
+	echo "{$k}-------{$v}<br>";
+}
+------------------------------------------------------
+超全局数组
+
+1.$GLOBALS
+包含以下超全局数组的数据
+$_REQUEST
+$_POST
+$_GET
+$_FILES
+$_ENV
+$_COOKIE
+$_SERVER
+
+2.$_SERVER数组：
+Array
+(
+    [HTTP_HOST] => localhost
+    [HTTP_USER_AGENT] => Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55.0
+    [HTTP_ACCEPT] => text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+    [HTTP_ACCEPT_LANGUAGE] => zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+    [HTTP_ACCEPT_ENCODING] => gzip, deflate
+    [HTTP_CONNECTION] => keep-alive
+    [HTTP_UPGRADE_INSECURE_REQUESTS] => 1
+    [HTTP_CACHE_CONTROL] => max-age=0
+    [PATH] => C:\Program Files\Java\jre1.8.0_121\bin;
+    [SystemRoot] => C:\windows
+    [COMSPEC] => C:\windows\system32\cmd.exe
+    [PATHEXT] => .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC
+    [WINDIR] => C:\windows
+    [SERVER_SIGNATURE] => Apache/2.4.23 (Win64) PHP/5.6.25 Server at localhost Port 80
+
+    [SERVER_SOFTWARE] => Apache/2.4.23 (Win64) PHP/5.6.25
+    [SERVER_NAME] => localhost
+    [SERVER_ADDR] => ::1
+    [SERVER_PORT] => 80
+    [REMOTE_ADDR] => ::1
+    [DOCUMENT_ROOT] => C:/wamp64/www
+    [REQUEST_SCHEME] => http
+    [CONTEXT_PREFIX] => 
+    [CONTEXT_DOCUMENT_ROOT] => C:/wamp64/www
+    [SERVER_ADMIN] => wampserver@wampserver.invalid
+    [SCRIPT_FILENAME] => C:/wamp64/www/index.php
+    [REMOTE_PORT] => 49177
+    [GATEWAY_INTERFACE] => CGI/1.1
+    [SERVER_PROTOCOL] => HTTP/1.1
+    [REQUEST_METHOD] => GET
+    [QUERY_STRING] => y=2015&m=9
+    [REQUEST_URI] => /index.php?y=2015&m=9
+    [SCRIPT_NAME] => /index.php
+    [PHP_SELF] => /index.php
+    [REQUEST_TIME_FLOAT] => 1505139192.491
+    [REQUEST_TIME] => 1505139192
+)
+
+['SERVER_NAME']服务器域名
+['SERVER_ADDR']客户端ip
+['SERVER_ADDR']服务器ip
+['SERVER_POST']服务器端口
+['DOCUMENT_ROOT']网站根目录
+['SCTIPT_FILENAME']当前脚本的系统绝对路径
+['REQUEST_URL']当前脚本网站的绝对路径
+['PHP_SELF']当前脚本网站的绝对路径
+
+查看服务器信息
+3.$_REQUEST
+全部接收$_POST和$_GET所能传的值
+4.$_POST
+http://localhost/index.php?y=2015&m=9
+form接收地址栏中参数，表单中提交的值，传参数不可见
+
+5.$_GET
+http://localhost/index.php?y=2015&m=9
+a、form接收地址栏中参数，传参数可见
+
+6.$_ENV
+PHP中的$_ENV存储了一些系统的环境变量，因为牵扯到实际的操作系统，所以不可能给出$_ENV的完整列表。
+$_ENV为空的可能原因：你的php.ini的variables_order值为"GPCS"，也就是说系统在定义PHP预定义变量时的顺序是 GET,POST,COOKIES,SERVER,没有定义Environment(E)，你可以修改php.ini文件的variables_order值为你想要的顺序，如："EGPCS"。这时，$_ENV的值就可以取得了。
+EGPCS是Environment、Get、Post、Cookies、Server的缩写，这是PHP中外部变量来源的全部范围
+7.$_FILES
+8.$_COOKIE
+9.$_SESSION
+
+数组函数
+
+1.数组中的键值操作函数：
+array_value();
+	获取数组中的值
+array_keys();
+	获取数组中的键+-
+in_array();
+	检查一个值是否在数组中
+array_key_exists();
+	检查一个键是否在数组中
+array_filp();
+	键和值对调；
+array_reverse();
+	数组中的值反转；
+------------------------------
+2.统计数组的元素和唯一性
+count();
+	统计数组中元素的个数
+array_count_values();
+	统计数组中每个值出现的次数
+array_unique();		
+	统计数组中不重复值
+------------------------------
+3.使用回调函数处理数组的函数
+array_filter(数组，回调函数);
+	数组值过滤(返回原数组中的通过筛选的数据)
+array_map(回调函数，数组);
+	将回调函数作用到给定数组的单元上(可返回元数据处理后的数据)
+------------------------------
+4.数组的排序函数(都会改变原数组)  
+1.sort();
+	按值把数组值进行排序，升序，不保留key
+2.rsort();
+	按值把数组值进行排序，降序，不保留key
+3.asort();
+	按值把数组值进行排序，升序，保留key
+4.arsort();
+	按值把数组值进行排序，降序，保留key
+5.ksort();
+	按键把数组值进行排序，升序，保留key
+6.krsort();
+	按键把数组值进行排序，降序，保留key
+7.natsort()
+	字符串排序
+	按自然数升序排序
+	
+8.natcasesort()
+	忽略大小写的自然数排序
+9.array_multisort();
+	用一个数组对另一个数组进行排序
+	array_multisort($arr3,SORT_DESC,$arr2);	降序排序
+	array_multisort($arr3,SORT_ASC,$arr2);	升序排序
+---------------------
+$arr2 = array(1=>1,5=>'G2',3=>'Hg3',4=>'g7',7,5,'sec'=>'bb63','age'=>8);
+foreach ($arr2 as $value) {
+	$arr3[]=strlen($value);
+}
+array_multisort($arr3,SORT_DESC,$arr2);
+$arr2为大数组
+$arr3为小数组，是大数组中的某种关系
+---------------------
+字符串长度测量函数：
+string(字符串)
+---------------------
+5.数组中的截取函数
+array_slice($arr,start,end);
+在数组$arr从start开始截end个，不改变原数组
+array_splice();
+在数组$arr从start开始截end个，改变原数组
+array_combine(keys, values);
+array_combine($arr1,$arr2);
+将$arr1的键和$arr2的值合并为一个新数组
+--------
+$arr1 = array(1=>3,5=>'G2',3=>'Hg3',4=>'g7',0,7,'sec'=>'bb68','age'=>9);
+$arr2 = array(1=>1,5=>'G2',3=>'Hg3',4=>'g7',7,5,'sec'=>'bb63','age'=>8);
+$arr3 = array_combine($arr1,$arr2);
+echo "<pre>";
+print_r($arr3);
+echo "</pre>";
+结果：
+Array
+(
+    [3] => 1
+    [G2] => G2
+    [Hg3] => Hg3
+    [g7] => g7
+    [0] => 7
+    [7] => 5
+    [bb68] => bb63
+    [9] => 8
+)
+---------------------
+array_merge($arr1,$arr2);
+$arr1的键值与$arr2的键值合并为一个新数组
+---------------------
+$arr1 = array(1=>3,5=>'G2',3=>'Hg3',4=>'g7',0,7,'sec'=>'bb68','age'=>9);
+$arr2 = array(1=>1,5=>'G2',3=>'Hg3',4=>'g7',7,5,'sec'=>'bb63','age'=>8);
+$arr3 = array_merge($arr1,$arr2);
+echo "<pre>";
+print_r($arr3);
+echo "</pre>";
+结果：
+Array
+(
+    [0] => 3
+    [1] => G2
+    [2] => Hg3
+    [3] => g7
+    [4] => 0
+    [5] => 7
+    [sec] => bb63
+    [age] => 8
+    [6] => 1
+    [7] => G2
+    [8] => Hg3
+    [9] => g7
+    [10] => 7
+    [11] => 5
+)
+当键名为字符串，重复时发生覆盖
+-------------------
+$str=implode($arr,'_');
+implode()的别名join($arr,'_');
+将数组中所有值用'_'连接，返回字符串;
+$str=explode('_',$str);
+将字符串用'_'拆分，返回一个数组；
+----------------------------------------
+6.数组与数据结构
+array_pop();
+从最后弹出一个弹出值
+array_push();
+从最后压入一个值，返回数组中值的个数
+array_shift();
+从前面返回一个弹出值
+array_unshift();
+从前面插入一个值，返回数组中值的个数
+----------------------------------------
+7.其他有用的数组处理函数
+array_rand();
+从数组中随机取一个key;
+shuffle();
+打乱数组
+array_sum();
+数组中所有值的和；(值中有数字时可用)
+array_product();
+数组中所有值的乘积；(所有值均为数字时可用)
+range();
+获取一个范围内数组
+------------------
+验证码：
+$arr1 = range(0,9);
+$arr2 = range(a,z);
+$arr3 = range(A,Z);
+$arr4 = array_merge($arr1,$arr2,$arr3);
+shuffle($arr4);
+$arr5 = array_slice($arr4,0,4);
+$str= implode($arr5,'-');
+echo "<pre>";
+print_r($str);
+echo "</pre>";
+-------------------
+8.删除
+unset()
+变量删除,数组,数组值删除
+unset($a);
+unset($arr);
+unset($arr[5]);
+------------------------------------------------------------------------------------------------------------------
+字符串处理函数
+1.字符串定义
+	$str='Hello word';
+2.输出字符串
+	echo $str;
+	print $str;
+	printf('----%s-----',$str);
+	sprintf('----%s-----',$str);
+	die("输出一条错误消息"); 
+3.字符串连接
+	echo '<h1>'.$arr.'</h1>';
+	echo "<h1>{$arr}</h1>";
+4.常用的一些字符串格式化函数
+	1.取出空格和字符串填补函数
+		ltrim()
+		去除左侧的空格
+		rtrim()
+		去除右侧的空格
+		trim()
+		去除左侧和右侧空格
+		str_pad($str,n,'-');
+		将字符串右侧少于n个字符的位置补成-;
+		str_pad($str,n,'+',STR_PAD_LEFT);
+		将字符串左侧少于n个字符的位置补成+;
+		str_pad($str,n,'+',STR_PAD_BOTH);
+		将字符串左右少于n个字符的位置平均补成+;
+		str_repeat('-',100);
+		重复输出100个'-',返回字符串;
+	2.字符串大小写转换
+		strtolower($str);
+		字符串转小写；
+		strtolower($str);
+		字符串转小写；
+		ucfirst();
+		句子首字母大写
+		ucwords();
+		单词首字母大写
+	3.与html标签相关联的字符串函数
+		nl2br()
+		把\n换行符转义为br标签
+		htmlspecialchars();转实体
+		代码转html实体
+		htmlspecialchars_decode();解实体
+		实体转html代码
+		htmlspecialchars($str);
+		$str="<h1>aaaaaaa</h1>";转为：$str="&lt;h1&gt;aaaaaaa&lt;/h1&gt;";
+		strip_tags();
+		除去html代码
+		addslashes();
+		将单引号前加\转义避免语句混乱
+		stripslashes();
+		数据从数据库出来的时候将\去除
+	4.其他字符串格式化函数
+		strrev();
+		将字符串反转
+		•strlen();
+		获取字符串长度
+		number_format($str,0,'',',');
+		数字货币格式化
+		---------
+		$str="132435434352436.112";
+		$str=strrev($str);
+		$arr=str_split($str,3);
+		$str2=join(',',$arr);
+		echo strrev($str2);
+		----------
+		$str='41465321541413213';
+		function nf($str,$var){
+			$str=strrev($str);
+			$arr=str_split($str,3);
+			$str2=join($var,$arr);
+			return strrev($str2);
+		}
+		echo nf($str,',');
+		----------
+		md5();
+		将字符串加密为32位字母数字组合
+		str_shuffle($str);
+		打乱字符串顺序
+		substr($str,m,n);
+		截取字符串从m位开始截取n位
+		str_split($str,3);
+		将字符串每三个分割一下变为数组的一个元素
+		strpos('/');
+		第一个/字符位置	
+		strrpos('/');
+		倒数第一个/字符位置	
+		---------
+		$str='/www/wsyjlly/mess/index.php';
+		$pos=strrpos($str,'/');
+		echo substr($str,$pos+1);
+		//截取目录部分
+		$str='/www/wsyjlly/mess/index.php';
+		$pos=strrpos($str,'/');
+		echo substr($str,0,$pos+1);
+		----------
+		str_replace('wsyjlly','WSYJLLY',$str);
+		字符串替换函数
+		返回替换后字符串
+		strstr($str,'mess');
+		查找字符串的首次出现
+	5.路径处理函数
+		basename();
+		截取路径中文件部分
+		dirname();
+		截取文件中的目录部分
+		------
+		pathinfo();
+		目录解析
+		$str='/myshop/web/index.php';
+		$arr=pathinfo($str);
+		echo "<pre>";
+		print_r($arr);
+		echo "</pre>";
+		------
+		处理结果为：
+		Array
+		(
+		    [dirname] => /myshop/web
+		    [basename] => index.php
+		    [extension] => php
+		    [filename] => index
+		)
+		------
+		parse_url();
+		解析网址
+		$str='http://wwww.baidu.com/myshop/web/index.php?id=5&name=banee';
+		$arr=parse_url($str);
+		echo "<pre>";
+		print_r($arr);
+		echo "</pre>";
+		------
+		Array
+		(
+		    [scheme] => http
+		    [host] => wwww.baidu.com
+		    [path] => /myshop/web/index.php
+		    [query] => id=5&name=banee
+		)
+		parse_str();
+		----------------------------
+		$_GET()方法实现
+		function get(){
+			$query=$_SERVER['QUERY_STRING'];
+			$arr=explode('&',$query);
+			foreach ($arr as $value) {
+				$arr2=explode('=', $value);
+				$arr3[$arr2[0]]=$arr2[1];
+			}
+			return $arr3;
+		}
+		echo "<pre>";
+		print_r(get());
+		echo "</pre>";
+		-------------------------
+	6.支持多字节文字
+		mb_substr();
+-----------------------------------------------------------------------------------------------------------
+
+正则的使用场景：
+1.检查手机格式
+/^\d{11}$/
+2.检查邮箱格式
+/^\w+@\w+\.\w+$/
+3.检查手机是否以139开头
+/^139\d{8}$/
+正则匹配的函数:
+	preg_match('/^\d{11}$/',$str);
+	preg_match('/^139\d{8}$/',$str);
+	preg_replace($ptn,$str,$mt);
+	preg_grep();正则数组搜索函数，在数组中搜索包含指定值的元素
+	preg_split();正则分割函数
+------------
+$arr=array(
+	'a'=>'Linux is very much!',
+	'b'=>'php is very much!',
+	'c'=>'java is very much!',
+	'd'=>'jquery is very much!',
+);
+$arr=preg_grep('/linux|java|jquery|php/i',$arr);
+echo "<pre>";
+print_r($arr);
+echo "</pre>";	
+------------
+$str='2014-10+5/55=66';
+$mt=preg_split('/-|\+|\/|=/',$str);
+echo "<pre>";
+print_r($mt);
+echo "</pre>";	
+匹配结果：
+Array
+(
+    [0] => 2014
+    [1] => 10
+    [2] => 5
+    [3] => 55
+    [4] => 66
+)
+------------
+
+
+
+$str="php mysql is admin javascript css and jquery php Java PhP LInux lanp mysqL JavE sql";
+$ptn='/php/i';
+preg_match($ptn,$str,$mt);(单个匹配) 	$ptn为匹配的正则表达式 $str为要匹配的字符串 $mt为返回的匹配到的数组
+preg_match_all($ptn,$str,$mt);(多个匹配)
+echo "<pre>";
+print_r($mt);
+echo "</pre>";	
+
+
+
+复杂的字符串替换环境：
+向后引用
+$str='2017-9-25';
+echo preg_replace('/(\d+)\-(\d+)\-(\d+)/','$1.$2.$3',$str);
+
+$str='2017-9-25';
+$ptn='/(\d+)\-(\d+)\-(\d+)/';
+$rep='$1.$2.$3';  	//或$rep='\\1.\\2.\\3';
+echo preg_replace('$ptn,$rep,$str);
+-----------------
+正则表达式
+1.原子
+2.元字符
+3.模式修正符
+
+原子
+	1.任意一个字符除了换行符
+	.
+	/p.p/
+	2.单个字母、数字
+	a-z a~z其中任意一个字符
+	/[a-z]/
+	A-Z A~Z其中任意一个字符
+	/[A-Z]/
+	0-9	0~9其中任意一个字符
+	/[0-9]/
+	/^[0-9]/	除了0~9的其他任意一个字符 ^代表取反
+	3.模式单元
+	(abc) 匹配abc并且组成一个单元
+	4.原子表
+	[abc] 它中的任意一个字符a或b或c
+	5.重新使用的模式单元
+	\\1,$1
+
+	普通转义字符
+	6.\d--------匹配任意一个数字
+	/\d/
+	7.\D 	匹配任意一个非数字
+	/\D/
+	8.\w 	匹配任意字母、数字、下划线
+	/\w/
+	9.\W 	匹配非字母数字
+	/\W/
+	10.\s 	匹配空白字符
+	/\s/
+	11.\S 	匹配除了空白字符的其他字符
+	/\S/
+	
+	转义元字符
+	\*		\.		\[		\]、
+                                                                               
+元字符    加在原子后                                                  
+	*		任意多个前面的原子
+	+		多个前面的原子
+	？		前面一个原子可有可无
+	|		或
+	\b 		单词边界
+	/\b\d{1,2}\b/
+	\B 		非单词边界
+	{3}
+	{3,7}
+	/\d{3,7}/im
+	{3,}
+	^ 以……开头
+	/php^/im
+	$ 以……结尾
+	/php$/im
+模式修正符
+	忽略大小写i
+	/p.p/i
+	贪婪模式(最小化匹配)
+	/p.p/U 
+	多行修正符(把\n视为多行)
+	/\n/m
+	把多行视为独立的一行
+	/(.+)/s
+	/php|java/i
+	匹配php或java
+----------------------------------------------------------------------------------------------------------
+数学函数
+1.mix();	最大值
+mix(1,3,5,7,9);
+mix(array('1,3,5,7,9'));
+2.min();	最小值
+3.round();	四舍五入
+4.ceil();	进1
+5.floor();	舍1
+6.mt_rand();随机数
+mt_rand(0,5);取0~5中的随机的一个整数
+mt_rand();	取21亿内的一个随机整数
+----------------------------------------------------------------------------------------------------------
+日期函数
+time()
+microtime();微秒
+strtotime()	把字符串转时间戳
+date();		把时间戳转日期字符串
+date('Y-m-d H:i:s',0);
+date格式化参数
+Y:2017年
+m:01~12月
+n:1~12月
+d:01~21天
+j:1~31天
+H:24小时
+h:12小时
+i:00-59分
+s:00-59秒
+w:0~6周
+A:AM或PM
+a:am或pm
+L:是否闰年
+t:某月天数
+-------------
+闰年定义：
+1.能被4整除但不能被100整除
+2.能被4整除并且能被100整除且能被400整除
+-------------
+C:\wamp64\bin\apache\apache2.4.23\bin
+修改apache服务器中php配置文件可修改默认时间戳：date.timezone ="UTC"
+-------------
+php的错误处理
+1.错误报告级别
+2.调整错误报告级别
+-------------
+C:\wamp64\bin\apache\apache2.4.23\bin
+修改apache服务器中php配置文件可修改报错情况
+设置是否报错：
+display_errors = On
+设置报错级别：
+error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED	(~表示除了。。)
+E_ALL			所有报错
+E_NOTICE		提示报错		不会阻断脚本执行
+E_STRICT		提示错误		
+E_DEPRECATED	未来弃用报错
+E_WARNING		警告报错		不阻断
+E_ERROR			致命错误		阻断脚本执行
+E_PARSE			语法错误		全部脚本无法执行
+----------------------------------------------------------------------------------------------------------
+php动态图像处理函数
+1.php中gd库的使用
+2.验证码的绘制和使用
+3.php图像处理(缩放、裁剪、水印)
+
+ php中创建图像的六个步骤：
+ 1.创建画布资源
+	新建一个基于调色板的图像
+	$img=imagecreate(width, height);
+	新建一个真彩图像
+	$img=imagecreatetruecolor(width, height);
+
+ 2.准备颜色
+	$black=imagecolorallocate($img,0,0,0);			//(资源，十进制红参数，十进制绿参数，十进制蓝参数)
+	$white=imagecolorallocate($img,255,255,255);
+	$red=imagecolorallocate($img,255,0,0);
+	$green=imagecolorallocate($img,0,255,0);
+	$blue=imagecolorallocate($img,0,0,255);
+	$yellow1=imagecolorallocate($img,255,153,0);
+	$yellow2=imagecolorallocate($img,204,102,0);
+
+ 3.画布填充
+imagefill($img,0,0,$red);
+
+ 4.在画布上画图像和文字
+	画圆环：
+	imagedellipse($img, 450, 250, 300, 300, $yellow1);//(资源，圆心x坐标，圆心y坐标，圆的横轴长，圆的纵轴长，填充颜色)
+	画填充圆：
+	imagefilledellipse($img, 450, 250, 300, 300, $yellow1);//(资源，圆心x坐标，圆心y坐标，圆的横轴长，圆的纵轴长，填充颜色)
+	画点(画一个像素)：
+	imagesetpixel($img, 10, 10, $red);//(资源，横坐标，纵坐标，颜色)
+	--------
+	点干扰素：
+	for ($i=0; $i <10000 ; $i++) { 
+		imagesetpixel($img, mt_rand(0,900), mt_rand(0,500), $red);
+	}
+	--------
+	画线：
+	imageline($img,0,0,200,300,$white);//(资源，起始点横坐标，起始点纵坐标，终点横坐标，终点纵坐标，颜色)
+	--------
+	线干扰素：
+	for ($i=0; $i <1000 ; $i++) { 
+		imageline($img, mt_rand(0,900), mt_rand(0,500), mt_rand(0,900), mt_rand(0,500),$black);
+	}
+	--------
+	画矩形：
+	imagerectangle(image, x1, y1, x2, y2, color);
+	画矩形并填充：
+	imagefilledrectangle(image, x1, y1, x2, y2, color);
+	矩形干扰素：
+	--------
+	for ($i=0; $i <100 ; $i++) { 
+		imagerectangle($img, mt_rand(0,900), mt_rand(0,500), mt_rand(0,900), mt_rand(0,500),$black);
+	}
+	--------
+	画多边形：
+	imagepolygon(image, points, num_points, color);
+	画多边形并填充：
+	imagefilledpolygon(image, points, num_points, color);
+	$arr=array(
+		mt_rand(0,900), mt_rand(0,500), 
+		mt_rand(0,900), mt_rand(0,500),
+		mt_rand(0,900), mt_rand(0,500),
+		mt_rand(0,900), mt_rand(0,500),
+		);
+	imagepolygon($img, $arr, 4,$blue);
+	画圆弧
+	imagearc(image, cx, cy, width, height, start, end, color);
+	imagearc($img, 0, 250, 300, 300, 0, 360, $red);
+	画椭圆弧并填充
+	imagefilledarc(image, cx, cy, width, height, start, end, color);
+	水平画一行字符串
+	imagestring(image, font, x, y, string, color);
+	imagestring($img, 15, 100, 100, dfadfdasf, $yellow2);
+	垂直画一行字符串
+	imagestringup(image, font, x, y, string, color);
+	imagestringup($img, 15, 300, 100, dfadfdasf, $yellow2);
+	水平画一个字符
+	imagechar(image, font, x, y, c, color);
+	imagechar($img, 32, 200, 200, h, $yellow1);
+	垂直画一个字符
+	imagecharup(image, font, x, y, c, color);
+	imagecharup($img, 32, 250, 200, h, $yellow1);
+	truetype写一段文本
+	imagettftext(image, size, angle, x, y, color, fontfile, text);
+	imagettftext($img, 50, 15, 100, 300, $red, 'STKAITI.TTF', "nijafdfsafas");
+ 5.输出最终图像或保存最终图像
+	header('content-type:image/jpeg');
+	imagejpeg($img);
+	header('content-type:image/png');
+	imagepng($img);
+ 6.释放画布资源
+	imagedestroy($img);
+图片背景管理
+imagecreatefromjpeg(filename);
+imagecreatefrompng(filename);
+imagecreatefromgif(filename);
+图片缩放
+$src_image=imagecreatefromjpeg('mv.jpg');
+$dst_image=imagecreatetruecolor(960,540);
+$dst_x=0;
+$dst_y=0;
+$src_x=0;
+$src_y=0;
+$dst_w=960;
+$dst_h=540;
+$src_w=imagesx($src_image);
+$src_h=imagesy($src_image);
+imagecopyresampled($dst_image,$src_image,$dst_x,$dst_y,$src_x,$src_y,$dst_w,$dst_h,$src_w,$src_h);
+header('content-type:image/jpeg');
+imagejpeg($dst_image,'t_meinv.jpg');
+
+图片裁剪
+$src_image=imagecreatefromjpeg('mv.jpg');
+$dst_image=imagecreatetruecolor(960,540);
+$dst_x=0;
+$dst_y=0;
+$src_x=0;
+$src_y=0;
+$dst_w=540;
+$dst_h=540;
+$src_w=1080;
+$src_h=1080;
+imagecopyresampled($dst_image,$src_image,$dst_x,$dst_y,$src_x,$src_y,$dst_w,$dst_h,$src_w,$src_h);
+header('content-type:image/jpeg');
+imagejpeg($dst_image,'t_meinv.jpg');
+
+图片水印
+$dst_im=imagecreatefromjpeg('mv.jpg');
+$src_im=imagecreatefrompng('logo.png');
+$dst_x=0;
+$dst_y=0;
+$src_x=0;
+$src_y=0;
+$src_w=160;
+$src_h=80;
+imagecopy($dst_im,$src_im,$dst_x,$dst_y,$src_x,$src_y,$src_w,$src_h);
+header('content-type:image/jpeg');
+imagejpeg($dst_im,'w_mv.jpg');
+
+其他图片处理函数
+获取图片宽高：
+imagesx();
+imagesy();
+getimagesize();	不需要有图片资源即可获取图片大小
+------
+$file='logo.png';
+$arr=getimagesize($file);
+echo "<pre>";
+print_r($arr);
+echo "</pre>";
+------
+输出结果：
+Array
+(
+    [0] => 160
+    [1] => 80
+    [2] => 3
+    [3] => width="160" height="80"
+    [bits] => 8
+    [mime] => image/png
+)
+------
+----------------------------------------------------------------------------------------------
+文件处理函数
+1.文件操作
+	文件测试
+		filetype();
+		测试文件或目录/判断文件类型
+		is_dir();
+		判断是否是目录
+		is_file():
+		判断是否是文件
+		file_exists();
+		文件或目录是否存在
+		filesize();
+		文件大小或目录大小(4k)；
+	1.文件删除
+	unlink($file);
+	2.文件复制
+	copy($sfile,$dfile);
+	3.重命名文件
+	rename($sfile,$dfile);
+	4.打开文件
+	fopen();
+		r 	只读方式打开将文件指针指向文件头。 
+		r+ 	读写方式打开，将文件指针指向文件头。
+		w 	写入方式打开，将文件指针指向文件头并将文件大小截为零，如果文件不存在则创建新文件
+		w+ 	读写方式打开，将文件指针指向文件头并将文件大小截为零，如果文件不存在则创建新文件
+		a 	写入方式打开，将文件指针指向文件尾，如果文件不存在创建文件。
+		a+ 	读写方式打开，将文件指针指向文件尾，如果文件不存在创建文件。
+	----------
+	读txt文件并输出：
+	$file='hope.txt';
+	$fr=fopen($file,'r');
+	echo fread($fr,filesize($file));
+	----------
+	打开txt文本并写入后读出：
+	$file='hope.txt';
+	$fr=fopen($file,'a+');
+	fwrite($fr, "不要在奋斗的年纪选择了安逸！<br>");
+	rewind($fr);
+	echo fread($fr,filesize($file));
+	----------
+	打开图片：(图片的代码可以抠出来)
+	header('content-type:image/png');
+	$file='mv.png';
+	$fr=fopen($file,'r');
+	echo fread($fr,filesize($file));
+	fclose($fr);
+	----------
+	5.关闭文件
+	fclose();
+	6.读取文件内容
+	fread();		//需要资源
+	readfile();		//不需要资源
+	file_get_contents();//不需要资源
+	----------
+	读txt文件并输出：
+	$file='hope.txt';
+	----------
+	header('content-type:image/png');
+	$file='mv.png';
+	readfile($file);
+	----------
+	读txt文件并输出：
+	$file='hope.txt';
+	$sfile=file_get_contents($file);
+	echo $sfile;
+	----------
+	header('content-type:image/png');
+	$file='mv.png';
+	$sfile=file_get_contents($file);
+	echo $sfile;
+	7.写入文件		
+	fwrite();
+	file_put_contents();//不需要资源
+	file_put_contents($file,'dfasdf');//覆盖原文件
+	file_put_contents($file,'dfasdf',FILE_APPEND);//追加式写入
+	---------------
+	//页面静态化/页面缓存
+	$url='http://www.baidu.com';
+	$str=file_get_contents($url);
+	file_put_contents('baidu.html', $str);
+	--------------
+	编码转换
+	$str=iconv("gb2312", "utf-8", $str);
+	--------------
+	网站标题采集
+	$url='http://www.baidu.com';
+	$str=file_get_contents($url);
+	// $str=iconv("gb2312", "utf-8", $str);
+	preg_match('/<title>(.+)<\/title>/is',$str,$ms);
+	echo $ms[1];
+	--------------
+2.目录操作
+	目录遍历
+		opendir();
+		打开目录资源
+		readdir();
+		读取文件资源
+		closedir();
+		-----------
+		$dir="images";
+		$od=opendir($dir);
+		while ($file=readdir($od)) {
+			if ($file!='.'&& $file!='..') {
+				echo $file.'<br>';
+			}
+		}
+		closedir($od);
+		-----------
+		关闭目录资源
+		scandir();
+		将文件内文件全部读取组成数组
+		-----------
+		$dir="images";
+		$od=scandir($dir);
+		foreach ($od as $val) {
+			if ($val!='.'&& $val!='..') {
+				echo $val.'<br>';
+			}
+		}
+		-----------
+		$dir="images";
+		$od=scandir($dir);
+		foreach ($od as $key=>$val) {
+			if ($key<2){
+				continue;
+			}
+				echo $val.'<br>';
+		}
+		-----------
+		遍历目录并打印文件类型
+		$dir='images';
+		$arr=scandir($dir);
+		foreach ($arr as $key => $value) {
+			if ($key>1) {
+				$file=$dir.'/'.$value;
+				echo filetype($file).':'.$value.'<br>';
+			}
+		}
+		-----------
+	创建空目录
+		mkdir();
+	删除空目录
+		rmdir();
+	删除完整目录deDir();
+		-----------
+		function delDir($dir){
+			$files=scandir($dir);
+			foreach ($files as $key=>$val) {
+				if ($key>1){
+					$file=$dir.'/'.$val;
+					if(is_dir($file)) {
+						delDir($file);
+					}else{
+						unlink($file);
+					}
+				}
+			}
+			rmdir($dir);
+		}
+		delDir('images');
+		-----------
+		参考php官方写法，scandir();
+	复制完整目录copyDir();
+		-----------
+		function copyDir($dir1,$dir2){
+			mkdir($dir2);
+			$files=scandir($dir1);
+			foreach ($files as $key=>$val) {
+				if ($key>1){
+						$file1=$dir1.'/'.$val;
+						$file2=$dir2.'/'.$val;
+					if(is_dir($file1)) {
+						copyDir($file1,$file2);
+					}else{
+						copy($file1,$file2);
+					}
+				}
+			}
+		}
+		copyDir('images','imgs');
+		------------
+	移动完整目录mvDir();
+		------------
+		// 文件移动
+		moveDir($dir1,$dir2){
+			copyDir($dir1,$dir2);
+			delDir($dir1);
+		}
+		------------
+3.文件上传
+	------------
+	$sfile=$_FILES['img']['tmp_name'];
+	$dfile='../images/'.$_FILES['img']['name'];
+	move_uploaded_file($sfile,$dfile);
+	------------
+	move_uploaded_file($sfile,$dfile);
+===============================================
+//文件上传实例
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>uploads</title>
+	<style>
+		*{
+			font-familay:微软雅黑;
+		}
+	</style>
+</head>
+<body>
+	<h3>文件上传</h3>
+	<form action="upload.php" method='post' enctype='multipart/form-data'>
+		<p>请选择文件:</p>
+		<p>
+			<input type="file" name="img">
+		</p>
+		<p>
+			<input type="submit" value="上传">
+		</p>
+	</form>
+</body>
+</html>
+===============================================
+<?php 
+
+$sfile=$_FILES['img']['tmp_name'];
+$uploaddir='../images/';
+$filesize=$_FILES['img']['size'];
+//创建上传日期目录
+$year=date(Y);
+$mouth=date(m);
+$day=date(d);
+$datedir=$uploaddir.'/'.$year.'-'.$mouth.'-'.$day;
+if (!file_exists($datedir)) {
+	mkdir($datedir);
+}
+//获取文件后缀
+$farr=explode('.',$_FILES['img']['name']);
+$fext=array_pop($farr);
+//加工文件名
+$frand=time().mt_rand();
+// 最终上传路径和文件名
+$dfile=$datedir.'/'.$frand.'.'.$fext;
+//限制文件大小(1M)
+$size=1*1024*1024;
+//限制文件上传类型
+$allows=array('jpg','gif','png','txt');
+
+//文件移动操作
+if (in_array($fext,$allows)) {
+	if ($filesize<=$size) {
+		move_uploaded_file($sfile,$dfile);
+	}else{
+		echo "<script>alert('文件大小超过1M！')</script>";
+	}	
+}else{
+	echo "<script>alert('文件类型不允许,只允许上传png,jpg,gif,txt类型!')</script>";
+}
+//php.ini文件上传大小限制 
+//post_max_size = 8M		post限制
+//upload_max_filesize = 8M input限制
+//upload_max_filesize<=post_max_size
+ ?>
+ ===============================================
+ //文件上传错误码：
+ 0 正确
+ 1 上传大小超过了input[type=file]的文件上传框最大大小
+ 4 没有上传任何文件
+4.文件下载
+----------------------------------------------------------------------------------
+php面向对象
+1.概念
+2.继承
+3.封装
+4.实例：分页类
+5.实例：数据库操作
+6.抽象类
+7.接口
+8.多态
+9.魔术方法
+10.关键字
+
+面向对象的概念（OOP）(Object-Oriented Progremming,基于/面向对象的编程)
+1.OOP使编程的代码更简洁，更易于维护，并且具有很强的可重用性。
+2.OOP达到了软件工程的三个目标：重用性，灵活性，扩展性
+3.OOP面向对象编程的特点:封装、继承、多态
+
+类与对象的关系：类的实例化结果为对象
+
+类：在面向对象的编程语言中，类是独立的一个程序单位，是具有相同属性和服务的一组对象集合。它为属于该类的所有对象提供了统一抽象描述，其内部包括成员属性和服务的方法两个主要部分。
+
+对象：系统中用来描述客观事物的一个实体，它是构成系统的一个基本单位；
+
+类的组成成员
+1.成员属性
+2.成员方法
+
+类实例化对象
+$obj=new Person();
+
+对象调用成员
+$obj->say();
+echo $obj->name;//调用属性时属性前不加$
+
+构造方法和析构方法
+
+======================================
+<?php
+//类定义
+//(文件名要与类名相同)
+//类名每个单词的首字母必须大写，是最为严格的驼峰式写法
+//驼峰式personAction,严格的驼峰式写法PersonActionGoodLike
+
+class Person{
+
+	//属性，属性前必须有修饰词
+	public $name="user"; 	
+	public $age=20;
+	public $sex='nan';
+	
+	//构造方法 	在new对象时，默认调用的方法用来传递一些参数，
+	function __construct($n,$b,$m){
+		$this->name=$n;
+		$this->age=$b;
+		$this->sex=$m;
+	}
+
+	//方法名与类名相同时，该方法也为构造方法
+	// function Person($n,$b,$m){
+	// 	$this->name=$n;
+	// 	$this->age=$b;
+	// 	$this->sex=$m;
+	// }
+
+	//析构方法
+	// 1.      析构方法会自动调用
+	// 2.      析构方法主要用于销毁资源(比如释放数据库的链接，图片资源...销毁某个对象..);
+
+	// 析构函数会在到对象的所有的引用都被删除或者当对象被显示销毁时执行.   
+	// 3.      析构方法调用顺序是，先创建的对象后被销毁
+	// 4.      析构方法什么时候被调用
+	// (1)    当程序（进程结束）退出时
+	// (2)    当一个对象称为垃圾对象的时候，该对象的析构方法也会被调用,
+	// (3)    所谓垃圾对象，就是指，没有任何变量再引用它.
+	// (4)    一旦一个对象成为垃圾对象，析构方法就会立即调用
+
+	// 析构方法小结:
+	// ①php5加入的的析构方法function __destruct()
+	// ②析构方法没有返回值也不接受参数
+	// ③主要作用是释放资源的操作，并不是销毁对象本身。
+	// ④在销毁对象前,系统自动的调用该类的析构方法   
+	// ⑤一个类最多只有一个析构方法。
+	function __destruct(){
+		echo "我是{$this->name}，我还会回来的！";
+	}
+
+	//方法，方法前 可以不加修饰词，默认public
+	function say(){
+		//$this代表本对象  使用时属性前不加$
+		echo "hello world,my name is {$this->name}!<br>my age is {$this->age}!<br>my sex is {$this->sex}!<br>";
+		return $this;	//对象链的实现，方法的返回值为$this，即返回本对象
+	}
+}
+
+$obj=new Person('shiyi1',20,'nv');
+$obj->say();
+$obj1=new Person('shiyi2',20,'nv');
+$obj1->say()->say();
+$obj2=new Person('shiyi3',20,'nv');
+$obj2->say();
+
+?>
+===============================================
+封装特性
+1.public
+子类和类外面均可使用
+2.protected
+子类可用
+3.private	
+只有自己可用
+
+属性的作用域		只在类的内部使用，使用时用如：$this->name
+局部变量的作用域	函数内部变量，只能在函数内使用
+超全局变量			任何地方都可使用
+----------------
+类方法的调用
+//调用的类方法中不能有$this
+<?php
+
+class Person{
+	public $name="user";
+	function see($name){
+		echo "hello world,my name is {$name}";
+	}
+}
+Person::see('shiyi');
+
+?>
+---------------
+类的继承特性
+.子类可以访问父类的成员
+.继承关键字extends
+.可提高代码的重用性
+.子类中写了一个与父类同名的方法时，会覆盖父类中的方法
+
+---------------
+抽象类：含有抽象方法的类
+abstract class Person{
+	abstract function show();
+	function say(){
+		//....
+	};
+}
+抽象方法：没有方法体的方法
+abstract function show();
+方法体：
+abstract function show(){
+	//方法体
+	//代码段
+}
+================================================
+<?php
+
+//抽象方法需加abstract标记
+abstract class Usb{
+	//抽象类
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+	function run(){
+			echo "<h3>usb run</h3>";
+	}
+	abstract 
+	function stop();
+}
+
+class Upan extends Usb{
+	//抽象类起到限制作用，
+	function stop(){
+			echo "<h3>usb stop</h3>";
+	}
+	function explode(){
+			echo "<h3>usb explode</h3>";
+	}
+
+}
+$obj=new Upan();
+$obj->start();
+$obj->run();
+$obj->stop();
+$obj->explode();
+?>
+============================================
+接口：只含有抽象方法的类
+<?php
+
+
+//抽象类的方法都是抽象方法，不允许出现方法体的类是接口
+// abstract class Usb{
+// 	//抽象类
+// 	abstract function start();
+// 	abstract function run();
+// 	abstract function stop();
+// }
+
+
+interface Usb{
+	//抽象类
+	function start();
+	function run();
+	function stop();
+}
+
+class Upan implements Usb{
+	//抽象类起到限制作用，
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+	function run(){
+			echo "<h3>usb run</h3>";
+	}
+	function stop(){
+			echo "<h3>usb stop</h3>";
+	}
+	function explode(){
+			echo "<h3>usb explode</h3>";
+	}
+}
+$obj=new Upan();
+$obj->start();
+$obj->run();
+$obj->stop();
+$obj->explode();
+
+?>
+======================================
+多态
+定义：用一个函数去加工类似的具有某些相同方法的对象
+用同个方法加工具有相同属性的不同对象
+
+多态是指在面向对象中能够根据使用类的上下文来重新定义或改变类的性质和行为。    
+
+PHP不支持重载实现多态，但是PHP可以变向的实现多态效果。
+
+
+class a{
+    function test($i){ // $i可以是任何类型的变量
+        print_r $i;
+    }
+}
+
+
+可以看出由于PHP是弱类型语言，所以$i可以是任何类型的变量，这样一个函数就可以实现如java等强类型语言中靠改变参数类型重载方法的多态形式。这种形式比JAVA的参数类型重载更便捷高效，但也存在问题，
+
+
+可以看出这样灵活的多态，需要一些控制，在PHP5.3以后可以对参数做类型限制，如下：
+// 仿java，在变量参数前加一个限制类名
+    function drawPolygon(Polygon $polygon){ 
+        $polygon->draw(); 
+    }
+
+	这样就限制了只能传入Polygon及其子类。
+	还有一只是改变参数数量的重载，同样是因为PHP也不支持方法的重载，所以也需要些变通的方法实现，如下：
+---------------------------------------------------
+<?php
+// 通过可变参数来达到改变参数数量重载的目的
+// 不是必须传入的参数，必须在函数定义时赋初始值
+function open_database($DB, $cache_size_or_values=null, $cache_size=null){
+    switch (function_num_args())           //通过function_num_args()函数计算传入参数的个数，根据个数来判断接下来的操作
+    {
+        case 1:
+            $r = select_db($DB);
+            break;
+        case 2:
+            $r = select_db($DB, $cache_size_or_values);
+            break;
+        case 3:
+            $r = select_db($DB, $cache_size_or_values, $cache_size);
+            break;
+    }
+    return is_resource($r);
+}
+?>
+-----------------------------------------------
+魔术方法
+在某些情况下自动调用
+1.__construct	构造方法
+2.__destruct	析构方法
+3.__toString	给类增加一个说明
+--------------------
+<?php
+class Upan{
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+	function __toString(){
+		return 'this is a class that used for Upan';
+	}
+}
+
+$obj=new Upan();
+echo $obj;
+?>
+--------------------
+4.__call	调用类中不存在或没有权限的方法时自动调用该魔术方法
+参数1为调用的方法名字，参数2为调用方法传递的参数
+--------------------
+<?php
+class Upan{
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+	function __call($i,$j){
+		echo "您调用的{$i}方法不存在！";
+	}
+}
+$obj=new Upan();
+$obj->call();
+?>
+--------------------
+5.__get		调用类中不存在或没有权限的属性时自动调用该魔术方法
+参数为调用的属性名字
+--------------------
+<?php
+class Upan{
+	private $name;
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+	function __get($i){
+		echo "您无权访问{$i}属性！";
+	}
+}
+
+$obj=new Upan();
+$obj->name;
+?>
+-------------------
+6.__set 	调用类中不存在或没有权限的属性并赋值时自动调用该魔术方法
+参数1为调用的属性名字，参数2为所赋值！
+-------------------
+<?php
+class Upan{
+	private $name;
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+	function __set($i,$j){
+		echo "您设置的{$i}属性不存在！";
+	}
+}
+
+$obj=new Upan();
+$obj->name='shiyi';
+?>
+-------------------
+7.__isset 	查看类中不存在或没有权限的属性并赋值时自动调用该魔术方法
+参数为查看的属性名字！
+-------------------
+<?php
+class Upan{
+	private $name;
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+	function __isset($i){
+		echo "您无权查看{$i}是否存在！";
+	}
+}
+
+$obj=new Upan();
+isset($obj->name);
+?>
+-------------------
+8.__unset 	删除类中不存在或没有权限的属性并赋值时自动调用该魔术方法
+参数为删除的属性名字！
+-------------------
+<?php
+class Upan{
+	private $name;
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+	function __unset($i){
+		echo "您无权删除{$i}！";
+	}
+}
+
+$obj=new Upan();
+unset($obj->name);
+?>
+-------------------
+面向对象关键字/修饰词
+1.类常量	const 	只能用类名调用，并且不能修改;
+-------------------
+<?php
+class Upan{
+	const HOST='www.shiyi.website';
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+}
+echo Upan::HOST;
+?>
+-------------------
+2.最终版本	final 类前加final不能有子类，类中方法前加final，子类中不能重写该方法
+-------------------
+
+<?php
+class BaseClass {
+   final public function moreTesting() {
+       echo "BaseClass::moreTesting() called\n";
+   }
+}
+
+class ChildClass extends BaseClass {
+   public function moreTesting() {
+       echo "ChildClass::moreTesting() called\n";
+   }
+}
+// Results in Fatal error: Cannot override final method BaseClass::moreTesting()
+?>
+<?php
+final class BaseClass {
+	}
+
+class ChildClass extends BaseClass {
+	}
+// 产生 Fatal error: Class ChildClass may not inherit from final class (BaseClass)
+?>
+-----------------
+3.静态成员	static
+-----------------
+//静态属性
+<?php
+//获取一个类实例化过多少对象
+class Upan{
+	public static $tot;
+	const HOST='www.shiyi.website';
+	function start(){
+			echo "<h3>usb start</h3>";
+	}
+	function __construct(){
+		//Upan::$tot++;
+		SELF::$tot++;
+	}
+}
+$obj=new Upan();
+$obj2=new Upan();
+$obj3=new Upan();
+$obj4=new Upan();
+$obj5=new Upan();
+echo $obj->start();
+echo Upan::$tot;
+?>
+------------------
+//静态方法
+<?php
+//获取一个类实例化过多少对象
+class Upan{
+	const HOST='www.shiyi.website';
+	static function start(){
+			echo "<h3>usb start</h3>";
+	}
+}
+$obj=new Upan();
+$obj->start();
+Upan::start();
+?>
+------------------
+==================================================================================
+SQL数据库(关系型)
+1.收费
+DB2
+Sqlserval
+Oracle
+2.免费开源
+Mysql
+Sqlite	大部分语言默认支持的一个小型数据库
+postgrepsql
+NOSQL   非数据库(关系型)
+1.MongoDB
+2.Redis
+3.Memcache
+
+LAMP架构
+Linix
+Apache
+Mysql
+PHP
+
+mysql服务端		C:\wamp64\bin\mysql\mysql5.7.14\bin\mysqld.exe
+mysql客户端		C:\wamp64\bin\mysql\mysql5.7.14\bin\mysql.exe
+mysql是各户端服务端模式
+phpmyadmin是mysql的一种客户端
+
+1.数据库设计
+2.数据库操作
+
+
+数据库服务器
+1.数据库
+2.数据表
+
+数据表
+1.表结构(字段)
+2.表数据(记录)
+3.表索引(加快检索)
+
+表引擎
+1.myisam(一个表三个文件)
+2.innodb(2个文件)
+
+mysql基本命令：
+1.net stop mysql;
+关闭mysql
+2.net start mysql;
+开启mysql
+3.mysql -uroot -p123;
+登录mysql
+4.show databases;
+查看数据库
+5.use test;
+切换到test数据库
+6.show tables;
+查看数据表
+7.select * from t1; *代表列
+  select id from t1; 
+
+查看t1表中的数据
+8.desc t1;
+查看 t1表列结构
+9.exit;
+退出mysql客户端
+----------------
+数据库操作
+1.如何创建数据库
+create database shiyi;
+2.如何删除数据库
+drop database shiyi;
+----------------
+表操作：
+1.创建表
+create table shiyi(
+id int,
+username varchar(50),
+age int
+);
+2.删除表
+drop table shiyi;
+3.修改表
+update shiyi set age=25 where id=2;
+4.查看表
+select * from t1;
+-----------------
+数据操作
+1.插入数据
+insert into shiyi(id,username,age) values(2,'user2',18);
+
+2.删除数据
+delete from shiyi where id=1;
+
+3.修改数据
+update shiyi set age=25 where id=2;
+
+4.查找数据
+select * from shiyi;
+
+2012年php开发特级课程
+mysql优化
+shell编程
+----------------------------------
+表字段类型
+1.数值
+tinyint(4) 无符号 <256
+tinyint(3) 有符号 <128
+int(11) 	无符号 <4294967296
+int(10) 	有符号 <2147483648
+bigint(20)  无符号
+bigint(19)  有符号
+float
+
+2.字符串类型
+char(255)	<255字节
+varchar(65535)	<65535字节
+	char和varchar区别
+	1.char最长255，varchar最长65535
+	2.char固定长度空间，varchar可变长度空间(实际空间+1)
+text 		<65535字节
+mediumtext  <16777216
+longtext  	<4294967296
+
+3.时间和日(期数值)
+数值时间戳
+推荐使用php中的time()时间戳
+数值字段属性
+1.unsigned 	无符号
+2.zerofill	0填充
+	-> create table bbd(
+    -> id int(5) zerofill);
+    insert into bbd(id) values(10);
+    insert into bbd(id) values(1000000);
+    -------------
+    00010
+    1000000 
+3.auto_increment
+自增需加主键！
+-----------------
+mysql> create table t1(
+    -> id int unsigned auto_increment,
+    -> name varchar(30),
+    -> primary key(id)
+    -> );
+Query OK, 0 rows affected (0.00 sec)
+--------------------------------------------------------------------------
+mysql通过索引进行的优化
+--------------------------------------------------------------------------
+表索引：
+作用：节约检索速度
+1.主键索引
+一个表只允许有一个
+加主键索引：
+alter table t8 add primary key(id);
+删除主键索引:
+alter table t8 drop primary key;
+加无符号和自增属性:
+alter table t8 modify id int unsigned auto_increment;
+alter table t8 modify id int unsigned not null;
+2.唯一索引
+唯一索引所在列中的值不允许重复
+添加唯一索引
+alter table t8 add unique uni_name(QQ);
+添删除唯一索引
+alter table t8 drop index idx_name;
+
+3.普通索引
+添加主键索引
+alter table t8 add index idx_name(name);
+删除普通索引
+alter table t8 drop index idx_name;
+-----------------
+-----------------
+4.null
+5.not null
+-----------------
+mysql> create table t6(
+    -> id int unsigned auto_increment primary key,
+    -> name varchar(30) not null default 'shiyi');
+Query OK, 0 rows affected (0.00 sec)
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(30)      | NO   |     | shiyi   |                |
++-------+------------------+------+-----+---------+----------------+
+mysql> insert into t6() values();
+Query OK, 1 row affected (0.00 sec)
+----------------
+mysql> create table t7(
+    -> id int unsigned auto_increment primary key,
+    -> name varchar(30) not null);
+Query OK, 0 rows affected (0.00 sec)
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(30)      | NO   |     | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+mysql> insert into t7() values();
+ERROR 1364 (HY000): Field 'name' doesn't have a default value
+-----------------
+6.default 默认值
+-----------------
+
+结构化查询语言sql
+大多数数据库包含4个部分
+1.DDL //数据定义语言。create,drop,alter
+2.DML //数据库操作语言。insert,delete,updade
+3.DQL //数据库查询语言。select
+4.DCL //数据控制语言。grant,commit,rollback
+
+
+修改数据表字段
+1.增
+alter table t8  add sex tinyint not null;
+alter table t8  add sex tinyint not null after name;
+alter table t8  add sex tinyint not null first;
+2.删
+alter table t8  drop sex;
+3.改
+alter table t8 change cla_id class_id int;
+alter table t8 modify class_id int unsigned not null;
+
+
+数据表操作：
+sql条件
+1).数学运算符
++ - * / %
+2).逻辑运算符
+&& || and or
+3).比较运算符
+= != <= >= <>(不等于)
+
+1.增：insert
+insert into t8(name,schoolnumber,sex,QQ) values('shiyi',1601141019,'nan',211874876);
+2.删：delete
+delete from t8;(删除表数据)
+delete from t8 where id=4;
+delete from t8 where id>=3 and id<=5;
+delete from t8 where id<=3 or id>=5;
+delete from t8 where id between 3 and 5;
+delete from t8 where id in(1,2,5);
+truncate t8;(清空数据表,重置自增值)
+3.改：update
+update t8 set sex='nv';
+update t8 set sex='nv' where id=3;
+4.查：select
+select * from t8;
+select * from t8 where id=2;
+select * from t8 where id<2;
+select id,name from t8 where id<2;(使用where条件查询)
+select name as 'xingming',schoolnumber as'sn'from t8;(起别名)
+select name 'xingming',schoolnumber 'sn' from t8;(起别名)
+select distinct name from t8; (查询所有唯一值)
+select * name from t8 where name is null; (查询空值)
+select * name from t8 where name is not null; (查询空值)
+select * name from t8 where id=1 or id=3 or id=7; (in的使用方法)
+select * name from t8 where id in(1,3,7); (in的使用方法)
+like的使用方法:
+% 匹配所有
+_ 匹配一个字符
+select * from t8 where name like "%shiyi%";
+//% 在前，name这一列的索引会失效
+regexp正则检索
+select * from t8 where name regexp 'shiyi';
+select * from t8 where name regexp '^shiyi';
+select * from t8 where name regexp 'shiyi$';
+使用order by对查询结果排序
+select * from t8 order by id asc;//默认就是升序，从小到大；
+select * from t8 order by id desc;//从大到小
+select * from t8 order by rand(); //乱序
+limit限制输出个数：(分页实现)
+select * from t8 order by id limit 1,5;从第一条开始，截5条
+select * from t8 order by id limit 5;(前5条,0省略不写 )
+mysql常用函数
+连接函数concat()
+select concat('hello','world','!!!');
+select concat(id,'-',name) shiyi from t8;
+随机数rand()
+select * from t8 order by rand();//乱序
+select * from t8 order by rand() limit 3;
+统计表总行数count()
+select count(id) from t8;
+select count(*) from t8;//*特指主键
++----------+
+| count(*) |
++----------+
+|       11 |
++----------+
+统计表总行数
+求和sum()
+select sum(id) from t8;
+平均值avg()
+select avg(id) from t8;
+最大值max()
+select max(id) from t8;
+最小值min()
+select min(id) from t8;
+
+分组聚合
+1.普通多表查询
+select class_id,count(class_id) from t8 group by class_id;
+select concat(class_id,'-','class'),count(class_id) from t8 group by class_id;
+-----------------------------
+having关键字查询
+mysql> select class_id from t8 group by class_id where class_id<2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where class_id<2' at line 1
+mysql> select class_id from t8 group by class_id having class_id<2;
++----------+
+| class_id |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+-------------------------------------------------------------
++----+-------------+
+| id | name        |
++----+-------------+
+|  1 | class one   |
+|  2 | class two   |
+|  3 | class three |
+|  4 | class four  |
++----+-------------+
++----+-----------+--------------+-----------+-------------+-----+----------+
+| id | name      | schoolnumber | QQ        | phonenumber | sex | class_id |
++----+-----------+--------------+-----------+-------------+-----+----------+
+|  1 | shiyi     |   1601141019 | 211874876 | 13781206061 |   1 |        2 |
+|  2 | gongshuai |   1601141021 | 956167376 | 13781206061 |   1 |        3 |
+|  3 | gongshuai |   1601141021 | 956167376 | 13781206061 |   1 |        1 |
+|  4 | gongshuai |   1601141021 | 956167376 | 13781206061 |   1 |        2 |
+|  5 | gongshuai |   1601141021 | 956167376 | 13781206061 |   1 |        1 |
+|  6 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        3 |
+|  7 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        2 |
+|  8 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        1 |
+|  9 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        2 |
+| 10 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        3 |
+| 11 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        1 |
++----+-----------+--------------+-----------+-------------+-----+----------+
+mysql> select * from t8,class where t8.class_id=class.id;
++----+-----------+--------------+-----------+-------------+-----+----------+----+-------------+
+| id | name      | schoolnumber | QQ        | phonenumber | sex | class_id | id | name        |
++----+-----------+--------------+-----------+-------------+-----+----------+----+-------------+
+|  1 | shiyi     |   1601141019 | 211874876 | 13781206061 |   1 |        2 |  2 | class two   |
+|  2 | gongshuai |   1601141021 | 956167376 | 13781206061 |   1 |        3 |  3 | class three |
+|  3 | gongshuai |   1601141021 | 956167376 | 13781206061 |   1 |        1 |  1 | class one   |
+|  4 | gongshuai |   1601141021 | 956167376 | 13781206061 |   1 |        2 |  2 | class two   |
+|  5 | gongshuai |   1601141021 | 956167376 | 13781206061 |   1 |        1 |  1 | class one   |
+|  6 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        3 |  3 | class three |
+|  7 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        2 |  2 | class two   |
+|  8 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        1 |  1 | class one   |
+|  9 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        2 |  2 | class two   |
+| 10 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        3 |  3 | class three |
+| 11 | syj       |   1601141001 | 956167376 | 13781206061 |   0 |        1 |  1 | class one   |
++----+-----------+--------------+-----------+-------------+-----+----------+----+-------------+
+mysql> select t8.name,class.name from t8,class where t8.class_id=class.id;
++-----------+-------------+
+| name      | name        |
++-----------+-------------+
+| shiyi     | class two   |
+| gongshuai | class three |
+| gongshuai | class one   |
+| gongshuai | class two   |
+| gongshuai | class one   |
+| syj       | class three |
+| syj       | class two   |
+| syj       | class one   |
+| syj       | class two   |
+| syj       | class three |
+| syj       | class one   |
++-----------+-------------+
+mysql> select class.name,count(class_id) from t8,class  where t8.class_id=class.id group by class_id;
++-------------+-----------------+
+| name        | count(class_id) |
++-------------+-----------------+
+| class one   |               4 |
+| class two   |               4 |
+| class three |               3 |
++-------------+-----------------+
+2.嵌套查询
+select * from t8 where id in(select max(id) from t7);
+3.链接查询
+
+select class.name,count(t8.id) from class left join t8 on class.id=t8.class_id group by class.id;
+
+select class.name,count(t8.id) from t8 right join class on class.id=t8.class_id group by class.id;
+
+mysql> select class.name,count(class.id) from class left join t8 on class.id=t8.class_id group by class.id;
++-------------+-----------------+
+| name        | count(class.id) |
++-------------+-----------------+
+| class one   |               4 |
+| class two   |               4 |
+| class three |               3 |
+| class four  |               1 |
++-------------+-----------------+
+
+右链接，把右边的表数据全部输出
+mysql> select class.name,count(t8.id) from t8 right join class on class.id=t8.class_id group by class.id;
++-------------+--------------+
+| name        | count(t8.id) |
++-------------+--------------+
+| class one   |            4 |
+| class two   |            4 |
+| class three |            3 |
+| class four  |            0 |
++-------------+--------------+
+4 rows in set (0.00 sec)
+
+左链接时左边的表全部输出，右边自动补NULL
+mysql> select class.name,count(t8.id) from class left join t8 on class.id=t8.class_id group by class.id;
++-------------+--------------+
+| name        | count(t8.id) |
++-------------+--------------+
+| class one   |            4 |
+| class two   |            4 |
+| class three |            3 |
+| class four  |            0 |
++-------------+--------------+
+
+内链接	完全等于普通多表查询，必须是符合条件的多个表的数据才会显示
+mysql> select class.name,class.id,count(t8.id) from class inner join t8 on class.id=t8.class_id group by class.id;
++-------------+----+--------------+
+| name        | id | count(t8.id) |
++-------------+----+--------------+
+| class one   |  1 |            4 |
+| class two   |  2 |            4 |
+| class three |  3 |            3 |
++-------------+----+--------------+
+3 rows in set (0.00 sec)
+-------------------------------------------------------------------------------------------------------------------------------------
+mysql> select class.name,if(count(t8.id),count(t8.id),'无') from class left join t8 on class.id=t8.class_id group by class.id;
++-------------+-------------------------------------+
+| name        | if(count(t8.id),count(t8.id),'无')  |
++-------------+-------------------------------------+
+| class one   | 4                                   |
+| class two   | 4                                   |
+| class three | 3                                   |
+| class four  | 无                                  |
++-------------+-------------------------------------+
+------------------------
+mysql> select * from t9;
++----+----------+-------+
+| id | username | score |
++----+----------+-------+
+|  1 | shiyi    |    60 |
+|  2 | shiyi    |    59 |
+|  3 | shiyi    |    69 |
+|  4 | shiyi    |    79 |
+|  5 | shiyi    |    49 |
+|  6 | shiyi    |    99 |
+|  7 | shiyi    |    79 |
+|  8 | shiyi    |    79 |
+|  9 | shiyi    |    79 |
+| 10 | shiyi    |    79 |
+| 11 | shiyi    |    79 |
+| 12 | shiyi    |    79 |
+| 13 | shiyi    |    79 |
+| 14 | shiyi    |    29 |
+| 15 | shiyi    |    29 |
+| 16 | shiyi    |    29 |
+| 17 | shiyi    |    29 |
+| 18 | shiyi    |    29 |
+| 19 | shiyi    |    29 |
+| 20 | shiyi    |    79 |
++----+----------+-------+
+输出及格与不及格总人数
+方法一
+mysql> select (select count(*) from t9 where score>=60) 及格,(select count(*) from t9 where score<60) 不及格;
++--------+-----------+
+| 及格   | 不及格    |
++--------+-----------+
+|     12 |         8 |
++--------+-----------+
+1 row in set (0.00 sec)
+方法二
+mysql> select sum(if(score>=60,1,0)) 及格,sum(if(score<60,1,0)) 不及格 from t9;
++--------+-----------+
+| 及格   | 不及格    |
++--------+-----------+
+|     12 |         8 |
++--------+-----------+
+1 row in set (0.00 sec)         
+-------------------------
+
+数据库表设计规律
+1.建表时每个表只有一个主体，每个主体只含有与该主体相关的属性
+2.表间关系不宜过多
+3.包含关系中一对多的情况下，多者留少者id，即被包含者留包含者id
+表与表关系：
+一对一
+一对多
+多对多
+-----------------
+mysql> create table t5(
+    -> id int unsigned auto_increment primary key,
+    -> name varchar(30) default 'wsyjlly',
+    -> sex varchar(5) default 'nv',
+    -> schoolnumber int,
+    -> QQ int default 211874876);
+-----------------------------------------------------------------------------
+| id           | int(10) unsigned | NO   | PRI | NULL      | auto_increment |
+| name         | varchar(30)      | YES  |     | wsyjlly   |                |
+| sex          | varchar(5)       | YES  |     | nv        |                |
+| schoolnumber | int(11)          | YES  |     | NULL      |                |
+| QQ           | int(11)          | YES  |     | 211874876 |				|
+--------------------------------------------------------------------------------
+客户端字符集
+连接字符集
+服务器字符集
+数据库字符集
+
+Server characterset:    latin1
+Db     characterset:    latin1
+Client characterset:    gbk
+Conn.  characterset:    gbk
+改为：
+Server characterset:    utf8
+Db     characterset:    utf8
+Client characterset:    utf8
+Conn.  characterset:    utf8
+方法如下：
+-----------
+找到mysql的配置文件
+C:\wamp64\bin\mysql\mysql5.7.14\my.ini
+在
+[client]
+;password = your_password
+port = 3306
+socket = /tmp/mysql.sock
+后加上
+default-character-set = utf8
+客户端和连接字符集
+在
+[wampmysqld64]
+;skip-grant-tables
+port = 3306
+socket = /tmp/mysql.sock
+key_buffer_size = 64M
+max_allowed_packet = 16M
+后加上
+character-set-server = utf8
+//服务器和数据库字符集
+collation-server = utf8_general_ci
+//服务器和数据库校验字符集
+
+重启mysql服务
+------------
+客户端字符集：
+php设置方法
+$sql="set names utf8";
+==============================================================
+mysql> select * from t8;
++----+------+-----+--------------+-----------+-------------+
+| id | name | sex | schoolnumber | QQ        | phonenumber |
++----+------+-----+--------------+-----------+-------------+
+|  1 | syj  | nv  |   1601141019 | 211874876 | 13781206061 |
+|  2 | syj  | nv  |   1601141019 | 211874876 | 13781206061 |
+|  3 | syj  | nv  |   1601141019 | 211874876 | 13781206061 |
++----+------+-----+--------------+-----------+-------------+
+mysql> select * from t8\G;
+*************************** 1. row ***************************
+          id: 1
+        name: syj
+         sex: nv
+schoolnumber: 1601141019
+          QQ: 211874876
+ phonenumber: 13781206061
+*************************** 2. row ***************************
+          id: 2
+        name: syj
+         sex: nv
+schoolnumber: 1601141019
+          QQ: 211874876
+ phonenumber: 13781206061
+*************************** 3. row ***************************
+          id: 3
+        name: syj
+         sex: nv
+schoolnumber: 1601141019
+          QQ: 211874876
+ phonenumber: 13781206061
+
+ERROR:
+No query specified
+=========================================================================
+``反引号可规避某些关键字
+-------------------------------------------------------------------------------------------------------------------------------------
+MYSQL的索引
+
+mysql中，不同的存储引擎对索引的实现方式不同，大致说下MyISAM和InnoDB两种存储引擎。
+
+MyISAM的B+Tree的叶子节点上的data，并不是数据本身，而是数据存放的地址。主索引和辅助索引没啥区别，只是主索引中的key一定得是唯一的。这里的索引都是非聚簇索引。
+MyISAM还采用压缩机制存储索引，比如，第一个索引为“her”，第二个索引为“here”，那么第二个索引会被存储为“3,e”，这样的缺点是同一个节点中的索引只能采用顺序查找。
+
+InnoDB的数据文件本身就是索引文件，B+Tree的叶子节点上的data就是数据本身，key为主键，这是聚簇索引。非聚簇索引，叶子节点上的data是主键(所以聚簇索引的key，不能过长)。为什么存放的主键，而不是记录所在地址呢，理由相当简单，因为记录所在地址并不能保证一定不会变，但主键可以保证。
+
+聚簇索引的数据的物理存放顺序与索引顺序是一致的，即：只要索引是相邻的，那么对应的数据一定也是相邻地存放在磁盘上的。如果主键不是自增id，那么可以想象，它会干些什么，不断地调整数据的物理地址、分页，当然也有其他一些措施来减少这些操作，但却无法彻底避免。但，如果是自增的，那就简单了，它只需要一页一页地写，索引结构相对紧凑，磁盘碎片少，效率也高。聚簇索引不但在检索上可以大大滴提高效率，在数据读取上也一样。比如：需要查询f~t的所有单词。一个使用MyISAM的主索引，一个使用InnoDB的聚簇索引。两种索引的B+Tree检索时间一样，但读取时却有了差异。因为MyISAM的主索引并非聚簇索引，那么他的数据的物理地址必然是凌乱的，拿到这些物理地址，按照合适的算法进行I/O读取，于是开始不停的寻道不停的旋转。聚簇索引则只需一次I/O。不过，如果涉及到大数据量的排序、全表扫描、count之类的操作的话，还是MyISAM占优势些，因为索引所占空间小，这些操作是需要在内存中完成的。
+鉴于聚簇索引的范围查询效率，很多人认为使用主键作为聚簇索引太多浪费，毕竟几乎不会使用主键进行范围查询。但若再考虑到聚簇索引的存储，就不好定论了。
+-------------------------------------------------------------------------------------------------------------------------------------
+PDO(PHP Data Object)PHP数据对象(数据库抽象层)
+PDO作用:
+一套函数可以操作不同的数据库：
+1.CUBRID
+2.MS SQL SERVER
+3.Firebird
+4.Informix
+5.Mysql
+6.MS Sql
+7.Oracle
+8.ODBC
+9.PostgreSQL
+10.SQLite
+11.4D
+12.DB2
+数据库操作：
+1.PDO class #PDO类
+2.PDOStatement class #PDO预处理类
+3.PDOException class #PDO异常处理类
+---------------------------------------
+//连接数据库
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$sql="select * from t8;";
+$smt=$pdo->query($sql);
+$arr=$smt->fetchAll();					//混合数组
+$arr=$smt->fetchAll(PDO::FETCH_BOTH);	//混合数组
+$arr=$smt->fetchAll(PDO::FETCH_ASSOC);	//关联数组
+// $arr=$smt->fetchAll(PDO::FETCH_NUM);	//索引数组
+echo "<pre>";
+print_r($arr);
+echo "</pre>";
+----------------------------------------
+
+pdo类
+1.query();
+2.exec();
+3.prepare();
+4.lastInsertId();//最后一次插入数据的id
+5.setAttribute();//设置默认属性
+6.getAttribute();//获取默认的获取模式
+7.beginTransaction();//开启任务
+8.commit();//成功提交本次任务
+9.rollback();//失败撤销本次任务
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$smt=$pdo->exec($sql);//返回影响行数
+
+
+
+pdostatement类的方法
+1.fetch()		//该方法将数据库数据转化为一维数组的方法
+2.fetchAll();	//该方法将数据库数据转化为二维数组的方法
+3.fetchColumn() //从结果集中的下一行返回单独的一列，如果没有了，则返回 FALSE 。你想从行里取回的列的索引数字（以0开始的索引）。如果没有提供值，则 PDOStatement::fetchColumn() 获取第一列,如果使用 PDOStatement::fetchColumn() 取回数据，则没有办法返回同一行的另外一列。
+4.rowCount();	//返回影响行数
+	
+
+$sql="select * from t8;";
+$smt=$pdo->query($sql);					//执行sql语句，返回结果集，返回一个pdostatement对象
+//$arr=$smt->fetchAll();				//混合数组
+//$arr=$smt->fetchAll(PDO::FETCH_BOTH);	//混合数组
+//$arr=$smt->fetchAll(PDO::FETCH_NUM);	//索引数组
+$arr=$smt->fetchAll(PDO::FETCH_ASSOC);	//关联数组
+//$arr=$smt->fetchAll(PDO::FETCH_OBJ);	//对象
+echo "<pre>";
+print_r($arr);
+echo "</pre>";
+
+
+预处理对象不用发送sql语句	可避免sql注入的风险
+5.execute();  //执行语句，返回ture或false
+6.bindValue();//给予处理绑值
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$pdo->exec('set names utf8'); 					//设置客户端字符集
+$sql="insert into t8(name) values('daixinya')";	//插入数据
+$smt=$pdo->prepare($sql);
+$smt->execute();								//返回ture或false
+if ($smt->execute()) {
+	$tot=$smt->rowCount();
+	echo "数据操作成功，成功插入{$tot}行！";
+}else{
+	echo "数据操作失败！";
+}
+
+----------------
+获取影响行数
+方法一：
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$sql="select * from t8;";
+$smt=$pdo->prepare($sql);
+$tot=$smt->rowCount();
+echo "查询了{$tot}行！";
+方法二：(建议使用)
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$sql="select count(*) from t8;";
+$smt=$pdo->prepare($sql);
+$smt->execute();
+$tot=$smt->fetchAll(PDO::FETCH_NUM);
+echo "查询了{$tot[0][0]}行！";
+方法三：
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$sql="select count(*) from t8;";
+$smt=$pdo->prepare($sql);
+$smt->execute();
+$tot=$smt->fetchColumn();
+echo "查询了{$tot}行！";
+--------------
+预处理绑值
+方法一(类型不限)
+bindValue()	
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$pdo->exec('set names utf8'); //设置客户端字符集
+$sql="select * from t8 where id<? or id>?";
+$smt=$pdo->prepare($sql);
+$smt->bindValue(1,5);
+$smt->bindValue(2,25);
+$smt->execute();
+$arr=$smt->fetchAll(PDO::FETCH_ASSOC);
+echo "<pre>";
+print_r($arr);
+echo "</pre>";
+方法二(类型受限)
+execute(array())
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$pdo->exec('set names utf8'); //设置客户端字符集
+$sql="select * from t8 where id<?";
+$smt=$pdo->prepare($sql);
+$smt->execute(array(5));
+$arr=$smt->fetchAll(PDO::FETCH_ASSOC);
+echo "<pre>";
+print_r($arr);
+echo "</pre>";
+--------------
+获取单行数据fetch()
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);//设置默认输出数组为关联数组
+$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,2);//设置默认输出数组为关联数组
+$pdo->exec('set names utf8'); //设置客户端字符集
+$sql="select count(*) num from t8 where id<?";
+$smt=$pdo->prepare($sql);
+$smt->execute(array(5));
+$arr=$smt->fetch(PDO::FETCH_ASSOC);
+echo "<pre>";
+print_r($arr);
+echo "</pre>";
+-------------
+返回下一行的某一列数据fetchColumn()
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$sql="select * from t8;";
+$smt=$pdo->prepare($sql);
+$smt->execute();
+$tot=$smt->fetchColumn();
+$tot=$smt->fetchColumn();
+$tot=$smt->fetchColumn(1);
+echo $tot;
+-------------
+PDO事务机制
+
+PDO类：
+beginTransaction();//开启任务
+commit();//成功提交本次任务
+rollback();//失败撤销本次任务
+PDOException类(异常处理)：
+getMessage();
+getFile();
+getLine();
+
+=====================================================
+事物机制加异常处理完整示例：
+<?php
+// 连接数据库
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$pdo->exec('set names utf8'); //设置客户端字符集
+$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+//开启事务
+$pdo->beginTransaction();
+try{
+	//一次事务
+	$sql="insert into t5() values();";
+	$smt=$pdo->prepare($sql);
+	$smt->execute();
+	//一次事务
+	$sql="inserte into t5() values();";
+	$smt=$pdo->prepare($sql);
+	$smt->execute();
+	// 提交
+	$pdo->commit();
+}catch(Exception $e){
+	echo $e->getMessage().'<br>';
+	// echo $e->getLine();
+	//撤回
+	$pdo->rollBack();
+}
+?>
+//mysql只有这个InnoDB驱动是支持事务处理的，默认MyIsAM驱动不支持
+=========================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>usertable</title>
+</head>
+<body>
+	<center>
+		<h1>用户查询</h1>
+		<table width="900" border="1px" cellspacing="0">
+			<tr>
+				<td>id</td>
+				<td>name</td>
+				<td>schoolnumber</td>
+				<td>QQ</td>
+				<td>phonenumber</td>
+				<td>sex</td>
+				<td>class_id</td>
+			</tr>
+			<?php
+				$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly;','root','234');
+				$sql="select * from t5;";
+				$smt=$pdo->query($sql);
+				$arr=$smt->fetchAll(PDO::FETCH_ASSOC);//返回关联数组
+				foreach($arr as $val){
+					echo "<tr>";
+					echo "<td>{$val['id']}</td>";
+					echo "<td>{$val['name']}</td>";
+					echo "<td>{$val['schoolnumber']}</td>";
+					echo "<td>{$val['QQ']}</td>";
+					echo "<td>{$val['phonenumber']}</td>";
+					echo "<td>{$val['sex']}</td>";
+					echo "<td>{$val['class_id']}</td>";
+					echo "</tr>";
+				}
+			?>
+		</table>
+	</center>
+</body>
+</html>
+===================================================
+用户模块开发
+
+<?php 
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$pdo->exec('set names utf8'); //设置客户端字符集
+$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);//设置默认输出数组为关联数组
+$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);//pdo报错异常处理默认
+//分页
+$length=15;
+$page=$_GET['p']?$_GET['p']:1;
+$count=($page-1)*$length;
+$sqlTot="select count(*) from t5";
+$smtTot=$pdo->prepare($sqlTot);
+$smtTot->execute();
+$tot=$smtTot->fetchColumn();
+if ($page>1){
+	$last=$page-1;
+}else{
+	$last=1;
+}
+if ($page<ceil($tot/$length)) {
+	$next=$page+1;
+}else{
+	$next=ceil($tot/$length);
+}
+$sql="select * from t5 limit {$count},{$length}";
+$smt=$pdo->prepare($sql);
+$smt->execute();
+$arr=$smt->fetchAll();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户模块开发</title>
+	<style>
+		*{
+			font-size: 18px;
+		}
+		h1{
+			font-size: 25px;
+		}
+		a{
+			text-decoration: none;
+			color: #ff6700;
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<h1>用户模块开发</h1>
+		<table border='1' cellspacing="0" width="900">
+			<tr>
+				<td colspan="4"><a href="javascript:" onclick="location.reload()"><center>查看用户</center></a></td>
+				<td colspan="5"><a href="insert.php"><center>添加</center></a></td>
+			</tr>
+			<tr>
+				<td>id</td>
+				<td>name</td>
+				<td>schoolnumber</td>
+				<td>QQ</td>
+				<td>phonenumber</td>
+				<td>sex</td>
+				<td>class_id</td>
+				<td>修改</td>
+				<td>删除</td>
+			</tr>
+			<?php 
+				foreach ($arr as $val) {
+					echo "<tr>";
+					echo "<td>$val[id]</td>";
+					echo "<td>$val[name]</td>";
+					echo "<td>$val[schoolnumber]</td>";
+					echo "<td>$val[QQ]</td>";
+					echo "<td>$val[phonenumber]</td>";
+					echo "<td>$val[sex]</td>";
+					echo "<td>$val[class_id]</td>";
+					echo "<td><a href='update.php?id={$val[id]}'>修改</a></td>";
+					echo "<td><a href='delete.php?id={$val[id]}'>删除</a></td>";
+					echo "</tr>";
+				}
+			 ?>
+		</table>
+		<div>
+			<a href="index.php?p=<?php echo $last ?>">上一页 |</a>
+			<a href="index.php?p=<?php echo $next ?>">下一页</a>
+		</div>
+	</center>
+</body>
+</html>
+=========================================================
+cookie和session的作用
+5.3版本以前coolie和session前不要有任何输出
+不同页面使用同一数据的技术：
+1.数据库
+2.文件
+3.cookie
+4.session
+5.内存
+
+cookie数组
+1.设置cookie
+setcookie('name','shiyi',time()+3600,'/');
+setcookie('索引','值',过期时间,作用范围);
+
+2.删除cookie
+setcookie('name','shiyi',0,'/');	//会话后过期，即关闭浏览器后过期
+
+3.清空cookie
+setcookie('password','234',time()-1,'/');//立即过期
+
+session数组
+1.设置session
+
+session_start();
+$_SESSION['name']='shiyi';
+$_SESSION['passwd']='125';
+$_SESSION['id']='123';
+echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";
+//默认会话后过期
+
+2.删除session
+
+//开启session
+session_start();
+
+//清空session数组
+$_SESSION=array();
+
+// 3.删除客户端的cookie文件
+setcookie('PHPDESSID','',time()-1,'/');
+
+//删除服务器上的PHPSESSID所对应的session文件
+session_destroy();
+
+php配置文件中设置默认session文件过期时间
+session.cookie_lifetime = 0
+
+设置关闭浏览器后清空session垃圾文件的时间间隔
+session.gc_maxlifetime = 1440
+
+
+[用户登录与退出系统]
+
+php页面跳转：
+header('location:index.php');
+js页面跳转：
+<script>location='login.php'</script>
+
+
+用户登录界面与登录后页面之间的php验证页面
+===================
+<?php 
+// include 'config.php';
+session_start();
+
+
+$pdo=new PDO('mysql:host=localhost;dbname=wsyjlly','root','234');
+$pdo->exec('set names utf8'); //设置客户端字符集
+$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_ASSOC);//设置默认输出数组为关联数组
+$pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);//pdo报错异常处理默认
+
+$name=$_POST['username'];
+$password=md5($_POST['password']);
+$sql="select id,name from t5 where name='{$name}' and password='{$password}' and class_id=1";
+$smt=$pde->prapare($sql);
+$smt->execute();
+$arr=$smt->fetch();
+
+if ($arr) {
+	$_SESSION['name']=$arr['name'];
+	$_SESSION['id']=$arr['id'];
+	echo "<script>location='index.php'</script>";
+}else{
+	echo "<script>location='login.php'</script>";
+}
+
+?>
+===================
+所有登录后的页面判断
+<?php
+session_start();
+if(!$SESSION['id']){
+	echo "<script>location='login.php'</script>";
+	exit;
+}
+
+?>
+===================
+退出登录前页面与登录页面之间的php操作session页面
+<?php
+
+session_start();
+$_SESSION=array();
+setcookie('PHPDESSID','',time()-1,'/');
+session_destroy();
+echo "<sctipt>location='login.php'</script>"
+
+?>
+====================================
+
+
+
+
+
+
+
+
